@@ -2,8 +2,11 @@ package com.qwy.chapter_02
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.qwy.chapter_02.model.UserSerializable
 
 class SecondActivity : AppCompatActivity() {
 
@@ -21,6 +24,13 @@ class SecondActivity : AppCompatActivity() {
                 intent.setClass(this, ThirdActivity::class.java)
                 startActivity(intent)
             }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        val user: UserSerializable? = intent.getSerializableExtra("extra_user") as UserSerializable?
+        Log.e(TAG, "user: ${user.toString()}")
     }
 
 
