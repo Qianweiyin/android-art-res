@@ -4,11 +4,12 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
-import android.os.IBinder
+import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.qwy.chapter_02.IBookManager
+import com.qwy.chapter_02.IOnNewBookArrivedListener
 import com.qwy.chapter_02.R
 
 
@@ -16,7 +17,25 @@ class BookManagerActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "QwyAidl"
+        private const val MESSAGE_NEW_BOOK_ARRIVED = 1
+
     }
+
+
+    private val mRemoteBookManager: IBookManager? = null
+
+
+    private val mHandler: Handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                MESSAGE_NEW_BOOK_ARRIVED -> {
+                    Log.d(TAG, "receive new book :" + msg.obj)
+                }
+                else -> super.handleMessage(msg)
+            }
+        }
+    }
+
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -35,10 +54,20 @@ class BookManagerActivity : AppCompatActivity() {
             val newList = bookManager.bookList
             Log.e(TAG, "query book newList : ${newList.toString()}")
 
+            bookManager.registerListener(mOnNewBookArrivedListener);
 
         }
 
     }
+
+
+    private val mOnNewBookArrivedListener: IOnNewBookArrivedListener =
+        object : IOnNewBookArrivedListener.Stub() {
+            @Throws(RemoteException::class)
+            override fun onNewBookArrived(newBook: Book) {
+                mHandler.obtainMessage(MESSAGE_NEW_BOOK_ARRIVED, newBook).sendToTarget()
+            }
+        }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +79,12 @@ class BookManagerActivity : AppCompatActivity() {
 
 
     override fun onDestroy() {
+        if (mRemoteBookManager != null
+            && mRemoteBookManager.asBinder().isBinderAlive
+        ) {
+            Log.e(TAG, "unregister listener:$mOnNewBookArrivedListener")
+            mRemoteBookManager.unregisterListener(mOnNewBookArrivedListener)
+        }
         unbindService(serviceConnection)
         super.onDestroy()
     }

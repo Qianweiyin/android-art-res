@@ -4,19 +4,60 @@ import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import android.os.RemoteException
+import android.util.Log
 import com.qwy.chapter_02.IBookManager
+import com.qwy.chapter_02.IOnNewBookArrivedListener
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.atomic.AtomicBoolean
 
 class BookManagerService : Service() {
 
     companion object {
         private const val TAG = "QwyAidl"
+        private val mIsServiceDestroyed: AtomicBoolean = AtomicBoolean(false)
+//        private val mIsServiceDestroyed = AtomicBoolean(false)
+
+        //Remove explicit type arguments
+        private val mBookList: CopyOnWriteArrayList<Book> = CopyOnWriteArrayList()
+        private val mListenerList = CopyOnWriteArrayList<IOnNewBookArrivedListener>()
+
+
+        @Throws(RemoteException::class)
+        private fun onNewBookArrived(book: Book) {
+            mBookList.add(book)
+            Log.d(TAG, "onNewBookArrived,notify listeners: ${mListenerList.size}")
+            for (i in 0 until mListenerList.size) {
+//                val listener: IOnNewBookArrivedListener = mListenerList[i]
+                val listener = mListenerList[i]
+                Log.d(TAG, "onNewBookArrived,notify listener:$listener")
+                listener.onNewBookArrived(book)
+            }
+        }
+
     }
 
-    //Remove explicit type arguments
-    private val mBookList: CopyOnWriteArrayList<Book> = CopyOnWriteArrayList()
 
     private val mBinder: Binder = object : IBookManager.Stub() {
+        override fun registerListener(listener: IOnNewBookArrivedListener?) {
+            if (!mListenerList.contains(listener)) {
+                mListenerList.add(listener)
+            } else {
+                Log.e(TAG, "already exists.")
+            }
+            Log.e(TAG, "registerListener,size: ${mListenerList.size}")
+        }
+
+        override fun unregisterListener(listener: IOnNewBookArrivedListener?) {
+            if (mListenerList.contains(listener)) {
+                mListenerList.remove(listener)
+                Log.e(TAG, "unregister listener succeed.")
+            } else {
+                Log.e(TAG, "not found,can not unregister.")
+            }
+            Log.e(TAG, "unregisterListener,current size:" + mListenerList.size)
+        }
+
         override fun addBook(book: Book?) {
             mBookList.add(book)
         }
@@ -35,6 +76,35 @@ class BookManagerService : Service() {
         super.onCreate()
         mBookList.add(Book(1, "Android"))
         mBookList.add(Book(2, "iOS"))
+
+        Thread(ServiceWorker()).start()
+
     }
 
+
+    override fun onDestroy() {
+        mIsServiceDestroyed.set(true);
+        super.onDestroy()
+    }
+
+
+    private class ServiceWorker : Runnable {
+        override fun run() {
+            // do background processing here.....
+            while (!mIsServiceDestroyed.get()) {
+                try {
+                    Thread.sleep(5000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                val bookId: Int = mBookList.size + 1
+                val newBook = Book(bookId, "new book# $bookId")
+                try {
+                    onNewBookArrived(newBook)
+                } catch (e: RemoteException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 }
