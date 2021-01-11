@@ -28,6 +28,14 @@ class BookManagerActivity : AppCompatActivity() {
             val list = bookManager.bookList
             Log.e(TAG, "query book list,list type:${list.javaClass.canonicalName}")
             Log.e(TAG, "query book list:${list.toString()}")
+
+            val newBook = Book(3, "Android开发艺术探索")
+            bookManager.addBook(newBook)
+            Log.e(TAG, "add book: $newBook")
+            val newList = bookManager.bookList
+            Log.e(TAG, "query book newList : ${newList.toString()}")
+
+
         }
 
     }
