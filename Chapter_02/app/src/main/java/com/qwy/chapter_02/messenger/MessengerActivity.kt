@@ -8,6 +8,7 @@ import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.qwy.chapter_02.MSG_FROM_CLIENT
+import com.qwy.chapter_02.MSG_FROM_SERVICE
 import com.qwy.chapter_02.R
 
 
@@ -21,11 +22,12 @@ class MessengerActivity : AppCompatActivity() {
     private val mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val mService = Messenger(service)
-            Log.d(TAG, "bind service")
+            Log.e(TAG, "bind service")
             val msg: Message = Message.obtain(null, MSG_FROM_CLIENT)
             val data = Bundle()
             data.putString("msg", "hello, this is client.")
             msg.data = data
+            msg.replyTo = mGetReplyMessenger
             mService.send(msg)
         }
 
@@ -44,19 +46,21 @@ class MessengerActivity : AppCompatActivity() {
         unbindService(mConnection)
         super.onDestroy()
     }
+
+
+    private val mGetReplyMessenger: Messenger = Messenger(MessengerHandler())
+
+    private class MessengerHandler : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                MSG_FROM_SERVICE -> {
+                    //Use of getter method instead of property access syntax
+                    Log.e(TAG, "receive msg from Service:" + msg.data.getString("reply"))
+                }
+                else -> super.handleMessage(msg)
+            }
+        }
+    }
 }
 
 
-////    private val mGetReplyMessenger: Messenger = Messenger(MessengerHandler())
-//
-//private class MessengerHandler : Handler() {
-//    override fun handleMessage(msg: Message) {
-//        when (msg.what) {
-//            MSG_FROM_SERVICE -> Log.i(
-//                MessengerActivity.TAG,
-//                "receive msg from Service:" + msg.getData().getString("reply")
-//            )
-//            else -> super.handleMessage(msg)
-//        }
-//    }
-//}
