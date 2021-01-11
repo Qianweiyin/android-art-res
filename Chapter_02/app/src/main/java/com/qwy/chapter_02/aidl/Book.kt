@@ -3,8 +3,8 @@ package com.qwy.chapter_02.aidl
 import android.os.Parcel
 import android.os.Parcelable
 
-class Book() : Parcelable {
-//        var bookId: Int? = null
+open class Book() : Parcelable {
+    //        var bookId: Int? = null
     var bookId: Int = 0 //存在堆里还是栈里
     var bookName: String? = null
 
@@ -43,5 +43,10 @@ class Book() : Parcelable {
         override fun newArray(size: Int): Array<Book?> {
             return arrayOfNulls(size)
         }
+    }
+
+
+    override fun toString(): String {
+        return String.format("[bookId:%s, bookName:%s]", bookId, bookName)
     }
 }
