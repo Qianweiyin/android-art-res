@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import com.qwy.chapter_02.manager.UserManager
 import com.qwy.chapter_02.model.UserSerializable
 import java.io.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,9 +50,7 @@ class MainActivity : AppCompatActivity() {
 //            .start()
 
 
-//        thread {  }
-
-        Thread(Runnable {
+        thread {
             val user = UserSerializable(1, "hello world", false)
             val dir = File(CHAPTER_2_PATH)
             if (!dir.exists()) {
@@ -70,7 +69,11 @@ class MainActivity : AppCompatActivity() {
             } finally {
                 close(objectOutputStream)
             }
-        }).start()
+        }
+
+//        Thread(Runnable {
+//
+//        }).start()
 
 
     }
