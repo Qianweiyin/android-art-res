@@ -6,6 +6,9 @@ import android.os.RemoteException
 import com.qwy.chapter_02.aidl.Book
 
 /**
+ *
+ * 手动写AIDL文件
+ *
  * 声明一个AIDL性质的接口，只需要继承IInterface接口即可，IInterface接口中只有一个asBinder方法。
  */
 interface IBookManager : IInterface {
