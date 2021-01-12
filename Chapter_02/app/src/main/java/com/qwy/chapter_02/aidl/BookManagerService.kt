@@ -4,12 +4,14 @@ import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import android.os.RemoteCallbackList
 import android.os.RemoteException
 import android.util.Log
 import com.qwy.chapter_02.IBookManager
 import com.qwy.chapter_02.IOnNewBookArrivedListener
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicBoolean
+
 
 class BookManagerService : Service() {
 
@@ -20,30 +22,48 @@ class BookManagerService : Service() {
 
         //Remove explicit type arguments
         private val mBookList: CopyOnWriteArrayList<Book> = CopyOnWriteArrayList()
-        private val mListenerList = CopyOnWriteArrayList<IOnNewBookArrivedListener>()
 
+//        private val mListenerList = CopyOnWriteArrayList<IOnNewBookArrivedListener>()
+
+        private val remoteCallbackList = RemoteCallbackList<IOnNewBookArrivedListener>()
 
     }
 
 
     private val mBinder: Binder = object : IBookManager.Stub() {
         override fun registerListener(listener: IOnNewBookArrivedListener?) {
-            if (!mListenerList.contains(listener)) {
-                mListenerList.add(listener)
-            } else {
-                Log.e(TAG, "already exists.")
-            }
-            Log.e(TAG, "registerListener,size: ${mListenerList.size}")
+//            if (!mListenerList.contains(listener)) {
+//                mListenerList.add(listener)
+//            } else {
+//                Log.e(TAG, "already exists.")
+//            }
+//            Log.e(TAG, "registerListener,size: ${mListenerL   ist.size}")
+
+
+            remoteCallbackList.register(listener);
+
         }
 
         override fun unregisterListener(listener: IOnNewBookArrivedListener?) {
-            if (mListenerList.contains(listener)) {
-                mListenerList.remove(listener)
-                Log.e(TAG, "unregister listener succeed.")
+//            if (mListenerList.contains(listener)) {
+//                mListenerList.remove(listener)
+//                Log.e(TAG, "unregister listener succeed.")
+//            } else {
+//                Log.e(TAG, "not found,can not unregister.")
+//            }
+//            Log.e(TAG, "unregisterListener,current size:" + mListenerList.size)
+
+
+            val success: Boolean = remoteCallbackList.unregister(listener)
+            if (success) {
+                Log.d(TAG, "unregister success.")
             } else {
-                Log.e(TAG, "not found,can not unregister.")
+                Log.d(TAG, "not found, can not unregister.")
             }
-            Log.e(TAG, "unregisterListener,current size:" + mListenerList.size)
+            Log.d(TAG, "unregisterListener, current size:${remoteCallbackList.beginBroadcast()}")
+            remoteCallbackList.unregister(listener)
+
+
         }
 
         override fun addBook(book: Book?) {
@@ -98,14 +118,23 @@ class BookManagerService : Service() {
 
     @Throws(RemoteException::class)
     fun onNewBookArrived(book: Book) {
+//        mBookList.add(book)
+//        Log.d(TAG, "onNewBookArrived,notify listeners: ${mListenerList.size}")
+//        for (i in 0 until mListenerList.size) {
+////                val listener: IOnNewBookArrivedListener = mListenerList[i]
+//            val listener = mListenerList[i]
+//            Log.d(TAG, "onNewBookArrived,notify listener:$listener")
+//            listener.onNewBookArrived(book)
+//        }
+
+
         mBookList.add(book)
-        Log.d(TAG, "onNewBookArrived,notify listeners: ${mListenerList.size}")
-        for (i in 0 until mListenerList.size) {
-//                val listener: IOnNewBookArrivedListener = mListenerList[i]
-            val listener = mListenerList[i]
-            Log.d(TAG, "onNewBookArrived,notify listener:$listener")
-            listener.onNewBookArrived(book)
+        val n: Int = remoteCallbackList.beginBroadcast()
+        for (i in 0 until n) {
+            val l: IOnNewBookArrivedListener = remoteCallbackList.getBroadcastItem(i)
+            l.onNewBookArrived(book)
         }
+        remoteCallbackList.finishBroadcast()
     }
 
 }
