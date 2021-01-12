@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qwy.chapter_02">
 
+    <permission
+        android:name="com.qwy.PROVIDER"
+        android:protectionLevel="normal" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.qwy.PROVIDER" />
 
     <application
         android:name=".MyApplication"
@@ -14,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chapter_02">
-        <activity android:name=".aidl.BookManagerActivity">
+        <activity android:name=".provider.ProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,6 +35,7 @@
             android:configChanges="screenLayout"
             android:label="@string/app_name"
             android:process="com.qwy.chapter_02.remote" />
+
         <!--        <activity android:name=".messenger.MessengerActivity" />-->
         <service
             android:name=".messenger.MessengerService"
@@ -38,6 +43,14 @@
         <service
             android:name=".aidl.BookManagerService"
             android:process=":remote" />
+
+
+        <provider
+            android:name=".provider.BookProvider"
+            android:authorities="com.qwy.chapter_02.provider"
+            android:permission="com.qwy.PROVIDER"
+            android:process=":provider" />
+        <!--        <activity android:name=".provider.ProviderActivity" />-->
     </application>
 
 </manifest>
