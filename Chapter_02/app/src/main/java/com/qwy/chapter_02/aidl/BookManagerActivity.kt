@@ -6,11 +6,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.*
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.qwy.chapter_02.IBookManager
 import com.qwy.chapter_02.IOnNewBookArrivedListener
 import com.qwy.chapter_02.R
+import kotlin.concurrent.thread
 
 
 class BookManagerActivity : AppCompatActivity() {
@@ -92,4 +94,14 @@ class BookManagerActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+
+    fun onButton1Click(view: View?) {
+        Toast.makeText(this, "click button1", Toast.LENGTH_SHORT).show();
+//        Thread(Runnable {
+//        }).start()
+
+        thread {
+            mRemoteBookManager?.bookList
+        }
+    }
 }

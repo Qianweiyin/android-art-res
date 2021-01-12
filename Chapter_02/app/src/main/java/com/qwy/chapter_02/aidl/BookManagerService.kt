@@ -2,10 +2,7 @@ package com.qwy.chapter_02.aidl
 
 import android.app.Service
 import android.content.Intent
-import android.os.Binder
-import android.os.IBinder
-import android.os.RemoteCallbackList
-import android.os.RemoteException
+import android.os.*
 import android.util.Log
 import com.qwy.chapter_02.IBookManager
 import com.qwy.chapter_02.IOnNewBookArrivedListener
@@ -71,6 +68,7 @@ class BookManagerService : Service() {
         }
 
         override fun getBookList(): MutableList<Book> {
+            SystemClock.sleep(5000)
             return mBookList
         }
     }
