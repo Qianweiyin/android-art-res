@@ -23,18 +23,6 @@ class BookManagerService : Service() {
         private val mListenerList = CopyOnWriteArrayList<IOnNewBookArrivedListener>()
 
 
-        @Throws(RemoteException::class)
-        private fun onNewBookArrived(book: Book) {
-            mBookList.add(book)
-            Log.d(TAG, "onNewBookArrived,notify listeners: ${mListenerList.size}")
-            for (i in 0 until mListenerList.size) {
-//                val listener: IOnNewBookArrivedListener = mListenerList[i]
-                val listener = mListenerList[i]
-                Log.d(TAG, "onNewBookArrived,notify listener:$listener")
-                listener.onNewBookArrived(book)
-            }
-        }
-
     }
 
 
@@ -88,7 +76,7 @@ class BookManagerService : Service() {
     }
 
 
-    private class ServiceWorker : Runnable {
+    inner class ServiceWorker : Runnable {
         override fun run() {
             // do background processing here.....
             while (!mIsServiceDestroyed.get()) {
@@ -107,4 +95,17 @@ class BookManagerService : Service() {
             }
         }
     }
+
+    @Throws(RemoteException::class)
+    fun onNewBookArrived(book: Book) {
+        mBookList.add(book)
+        Log.d(TAG, "onNewBookArrived,notify listeners: ${mListenerList.size}")
+        for (i in 0 until mListenerList.size) {
+//                val listener: IOnNewBookArrivedListener = mListenerList[i]
+            val listener = mListenerList[i]
+            Log.d(TAG, "onNewBookArrived,notify listener:$listener")
+            listener.onNewBookArrived(book)
+        }
+    }
+
 }

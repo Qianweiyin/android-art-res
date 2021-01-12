@@ -22,7 +22,7 @@ class BookManagerActivity : AppCompatActivity() {
     }
 
 
-    private val mRemoteBookManager: IBookManager? = null
+    private var mRemoteBookManager: IBookManager? = null
 
 
     private val mHandler: Handler = object : Handler(Looper.getMainLooper()) {
@@ -39,11 +39,14 @@ class BookManagerActivity : AppCompatActivity() {
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
-
+            mRemoteBookManager = null
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val bookManager = IBookManager.Stub.asInterface(service)
+            mRemoteBookManager = bookManager
+
+
             val list = bookManager.bookList
             Log.e(TAG, "query book list,list type:${list.javaClass.canonicalName}")
             Log.e(TAG, "query book list:${list.toString()}")
@@ -80,10 +83,10 @@ class BookManagerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         if (mRemoteBookManager != null
-            && mRemoteBookManager.asBinder().isBinderAlive
+            && mRemoteBookManager!!.asBinder().isBinderAlive
         ) {
             Log.e(TAG, "unregister listener:$mOnNewBookArrivedListener")
-            mRemoteBookManager.unregisterListener(mOnNewBookArrivedListener)
+            mRemoteBookManager!!.unregisterListener(mOnNewBookArrivedListener)
         }
         unbindService(serviceConnection)
         super.onDestroy()
