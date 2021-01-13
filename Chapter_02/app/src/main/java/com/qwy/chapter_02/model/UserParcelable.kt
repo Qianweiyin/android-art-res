@@ -2,6 +2,7 @@ package com.qwy.chapter_02.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.qwy.chapter_02.aidl.Book
 
 class UserParcelable() : Parcelable {
 
@@ -9,6 +10,7 @@ class UserParcelable() : Parcelable {
     var userName: String? = null
     var isMale = false
 
+    var book: Book? = null
 
     constructor(parcel: Parcel) : this() {
     }
@@ -37,5 +39,15 @@ class UserParcelable() : Parcelable {
         override fun newArray(size: Int): Array<UserParcelable?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun toString(): String {
+        return String.format(
+            "User:{userId:%s, userName:%s, isMale:%s}, with child:{%s}",
+            userId,
+            userName,
+            isMale,
+            book
+        )
     }
 }

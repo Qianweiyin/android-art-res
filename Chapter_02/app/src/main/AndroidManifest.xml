@@ -6,9 +6,12 @@
         android:name="com.qwy.PROVIDER"
         android:protectionLevel="normal" />
 
+    <uses-permission android:name="com.qwy.PROVIDER" />
+
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.qwy.PROVIDER" />
+
 
     <application
         android:name=".MyApplication"
