@@ -10,6 +10,14 @@ import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicBoolean
 
 
+/**
+ * AIDL大致流程：
+ * 首先创建一个Service和一个AIDL接口，接着创建一个类继承自AIDL接口中的
+ * Stub类并实现Stub中的抽象方法，在Service的onBind方法中返回这个类的对象，
+ * 然后客户端就可以绑定服务端Service，建立连接后就可以访问远程服务端的方法了。
+ */
+
+
 class BookManagerService : Service() {
 
     companion object {
