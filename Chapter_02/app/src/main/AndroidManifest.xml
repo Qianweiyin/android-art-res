@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chapter_02">
-        <activity android:name=".socket.TCPClientActivity">
+        <activity android:name=".binderpool.BinderPoolActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,6 +42,7 @@
             android:configChanges="screenLayout"
             android:label="@string/app_name"
             android:process="com.qwy.chapter_02.remote" />
+
 
         <!--        <activity android:name=".messenger.MessengerActivity" />-->
         <service
@@ -65,6 +66,10 @@
             android:process=":remote" />
 
 
+        <!--        <activity android:name=".binderpool.BinderPoolActivity" />-->
+        <service
+            android:name=".binderpool.BinderPoolService"
+            android:process=":remote" />
     </application>
 
 </manifest>
