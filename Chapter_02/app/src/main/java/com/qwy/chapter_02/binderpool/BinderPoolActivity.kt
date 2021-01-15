@@ -32,11 +32,10 @@ class BinderPoolActivity : AppCompatActivity() {
     fun doWork() {
 
         val binderPool: BinderPool = BinderPool.getInstance(this@BinderPoolActivity)
-        val securityBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER)
 
-
-        mSecurityCenter = ISecurityCenter.Stub.asInterface(securityBinder)
         Log.e(TAG, "visit ISecurityCenter")
+        val securityBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER)
+        mSecurityCenter = ISecurityCenter.Stub.asInterface(securityBinder)
         val msg = "helloworld-安卓"
         println("content:$msg")
         try {
