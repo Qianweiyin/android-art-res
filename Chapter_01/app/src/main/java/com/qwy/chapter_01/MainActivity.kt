@@ -1,10 +1,10 @@
 package com.qwy.chapter_01
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +24,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        val test: String? = savedInstanceState?.getString("extra_test")
+        Log.e(TAG, "[onCreate]restore extra_test: $test")
+
+
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.e(TAG, "onSaveInstanceState")
+        outState.putString("extra_test", "text")
+    }
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val test = savedInstanceState.getString("extra_test")
+        Log.e(TAG, "[onRestoreInstanceState]restore extra_test:$test")
+
+    }
 
     override fun onPause() {
         super.onPause()
@@ -37,5 +56,6 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         Log.e(TAG, "onStop")
     }
+
 
 }
