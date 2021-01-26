@@ -8,14 +8,10 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 
-class Practice3DrawRectView : View {
-
-
-    private val rectF: RectF = RectF(100f, 100f, 400f, 200f)
+class Practice7DrawRoundRectView : View {
     private val paint: Paint = Paint()
+    private val rectF: RectF = RectF(100f, 100f, 400f, 200f)
 
-
-    // TODO: 2021/1/26 Kotlin的构造函数
     constructor(context: Context?) : this(context, null)
 
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -26,15 +22,18 @@ class Practice3DrawRectView : View {
         defStyleAttr
     ) {
 
-        paint.style = Paint.Style.STROKE
         paint.color = Color.RED
+        paint.isAntiAlias = true
 
     }
 
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-//        练习内容：使用 canvas.drawRect() 方法画矩形
+        //练习内容：使用 canvas.drawRoundRect() 方法画圆角矩形
 
-        canvas?.drawRect(rectF, paint)
+        // TODO: 2021/1/26   rx/ry的意思
+        canvas?.drawRoundRect(rectF, 80f, 80f, paint)
+
     }
 }
