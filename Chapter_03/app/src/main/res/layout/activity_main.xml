@@ -46,8 +46,13 @@
     <!--        android:layout_width="wrap_content"-->
     <!--        android:layout_height="wrap_content" />-->
 
-    <com.qwy.hencoderpracticedraw01.practice.Practice7DrawRoundRectView
-        android:id="@+id/practice7DrawRoundRectView"
+    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice7DrawRoundRectView-->
+    <!--        android:id="@+id/practice7DrawRoundRectView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content" />-->
+
+    <com.qwy.hencoderpracticedraw02.HenCoderUi0102
+        android:id="@+id/HenCoderUi0102"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
