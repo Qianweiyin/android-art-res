@@ -8,51 +8,15 @@
     tools:context=".MainActivity">
 
 
-    <!--    <com.qwy.hencoderpracticedraw01.HenCoderUi0101-->
-    <!--        android:id="@+id/practice1DrawColorView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
+    <Button
+        android:onClick="onClickView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义 View 1-1 绘制基础" />
 
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice1DrawColorView-->
-    <!--        android:id="@+id/practice1DrawColorView2"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice2DrawCircleView-->
-    <!--        android:id="@+id/practice2DrawCircleView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice3DrawRectView-->
-    <!--        android:id="@+id/practice3DrawRectView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice4DrawPointView-->
-    <!--        android:id="@+id/practice4DrawPointView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice5DrawOvalView-->
-    <!--        android:id="@+id/practice5DrawOvalView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice6DrawLineView-->
-    <!--        android:id="@+id/practice6DrawLineView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <!--    <com.qwy.hencoderpracticedraw01.practice.Practice7DrawRoundRectView-->
-    <!--        android:id="@+id/practice7DrawRoundRectView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <com.qwy.hencoderpracticedraw02.HenCoderUi0102
-        android:id="@+id/HenCoderUi0102"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <Button
+        android:onClick="onClickView02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义 View 1-2 Paint 详解" />
 </LinearLayout>

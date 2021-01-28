@@ -2,7 +2,6 @@ package com.qwy.hencoderpracticedraw02
 
 import android.content.Context
 import android.graphics.*
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import com.qwy.chapter_03.R
@@ -257,6 +256,24 @@ class HenCoderUi0102 : View {
     private val circleBitmap = BitmapFactory.decodeResource(resources, R.drawable.circle_bitmap)
 
 
+    /**
+     *
+     * setPathEffect(PathEffect effect)
+     *
+     * 使用PathEffect来给图形的轮廓设置效果。
+     * 对Canvas所有的图形绘制有效，
+     * 也就是 drawLine()、drawCircle()、drawPath()这些方法
+     *
+     * 下面具体说一下Android中的6种PathEffect
+     * PathEffect分为两类，
+     * 单一效果的CornerPathEffect、DiscretePathEffect、DashPathEffect、PathDashPathEffect
+     * 和组合效果的SumPathEffect、ComposePathEffect
+     *
+     */
+
+    private var pathEffect = DashPathEffect(floatArrayOf(50f, 5f), 0f)
+
+
     private val paint: Paint = Paint()
 
 
@@ -270,6 +287,8 @@ class HenCoderUi0102 : View {
 //        paint.shader = shader
         paint.isAntiAlias = true
 
+        paint.style = Paint.Style.STROKE
+        paint.pathEffect = pathEffect
     }
 
 
@@ -286,14 +305,16 @@ class HenCoderUi0102 : View {
         // 别忘了用 canvas.saveLayer() 开启 off-screen buffer
 //        canvas?.saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
 //        setLayerType(LAYER_TYPE_SOFTWARE, paint)
-
-        canvas?.drawBitmap(rectBitmap, 0f, 0f, paint)// 画方
-        //Use of setter method instead of property access syntax
-        paint.xfermode = xfermode// 设置 Xfermode
-        //None of the following functions can be called with the arguments supplied.
-        canvas?.drawBitmap(circleBitmap, 0f, 0f, paint) // 画圆
+//
+//        canvas?.drawBitmap(rectBitmap, 0f, 0f, paint)// 画方
+//        //Use of setter method instead of property access syntax
+//        paint.xfermode = xfermode// 设置 Xfermode
+//        //None of the following functions can be called with the arguments supplied.
+//        canvas?.drawBitmap(circleBitmap, 0f, 0f, paint) // 画圆
 //        paint.xfermode = null // 用完及时清除 Xfermode
 
+
+        canvas?.drawCircle(300f, 300f, 200f, paint)
 
     }
 }
