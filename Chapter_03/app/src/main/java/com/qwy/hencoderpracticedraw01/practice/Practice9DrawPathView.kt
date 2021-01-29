@@ -24,11 +24,13 @@ class Practice9DrawPathView : View {
     ) {
 
         paint.isAntiAlias = true
+        paint.style = Paint.Style.FILL
 
         // 使用 path 对图形进行描述（这段描述代码不必看懂）
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+//            path.addArc(200f, 200f, 400f, 400f, -225f, 225f)
             path.addArc(200f, 200f, 400f, 400f, -225f, 225f)
-            path.arcTo(400f, 200f, 600f, 400f, -180f, 225f, false)
+            path.arcTo(400f, 200f, 600f, 400f, -180f, 225f, true)
         }
         path.lineTo(400f, 542f)
     }
