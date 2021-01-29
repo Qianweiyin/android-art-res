@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.qwy.hencoderpracticedraw01.PracticeDraw01Activity
+import com.qwy.hencoderpracticedraw02.PracticeDraw02Activity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickView02(view: View) {
-        val intent = Intent(this, PracticeDraw01Activity::class.java)
+        val intent = Intent(this, PracticeDraw02Activity::class.java)
         startActivity(intent)
     }
 }
