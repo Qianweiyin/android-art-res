@@ -37,7 +37,8 @@ android {
                     'src/main/res',
                     'src/main/res-hc-01',
                     'src/main/res-hc-02',
-                    'src/main/res-hc-03'
+                    'src/main/res-hc-03',
+                    'src/main/res-hc-04'
             ]
         }
     }

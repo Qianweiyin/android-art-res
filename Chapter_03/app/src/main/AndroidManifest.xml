@@ -24,6 +24,7 @@
             android:name="com.qwy.hencoderpracticedraw02.PracticeDraw02Activity"
             android:hardwareAccelerated="false" />
         <activity android:name="com.qwy.hencoderpracticedraw03.PracticeDraw03Activity" />
+        <activity android:name="com.qwy.hencoderpracticedraw04.PracticeDraw04Activity" />
     </application>
 
 </manifest>
