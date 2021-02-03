@@ -8,6 +8,7 @@ import com.qwy.hencoderpracticedraw01.PracticeDraw01Activity
 import com.qwy.hencoderpracticedraw02.PracticeDraw02Activity
 import com.qwy.hencoderpracticedraw03.PracticeDraw03Activity
 import com.qwy.hencoderpracticedraw04.PracticeDraw04Activity
+import com.qwy.hencoderpracticedraw05.PracticeDraw05Activity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickView04(view: View) {
         val intent = Intent(this, PracticeDraw04Activity::class.java)
+        startActivity(intent)
+    }
+
+    fun onClickView05(view: View) {
+        val intent = Intent(this, PracticeDraw05Activity::class.java)
         startActivity(intent)
     }
 }

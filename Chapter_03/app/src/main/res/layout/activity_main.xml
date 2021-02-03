@@ -34,4 +34,12 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="自定义 View 1-4 Canvas 对绘制的辅助 clipXXX() 和 Matrix" />
+
+    <Button
+        android:onClick="onClickView05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="自定义 View 1-5 绘制顺序" />
+
 </LinearLayout>
