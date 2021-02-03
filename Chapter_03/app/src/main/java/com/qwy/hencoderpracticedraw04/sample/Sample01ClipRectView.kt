@@ -72,7 +72,41 @@ class Sample01ClipRectView : View {
          *         2.调用Matrix的pre/postTranslate/Rotate/Scale/Skew()方法来设置几何变换；
          *         3.使用Canvas.setMatrix(matrix)或Canvas.concat(matrix)来把几何变换应用到Canvas。
          *
+         *         效果和Canvas是一样的。
+         *         把Matrix应用到Canvas有两个方法:
+         *         Canvas.setMatrix(matrix): 用Matrix直接替换Canvas当前的变换矩阵，即抛弃Canvas当前的变换,改用Matrix的变换
+         *         Canvas.concat(matrix):    用Canvas当前的变换矩阵和Matrix相乘,即基于Canvas当前的变换,叠加上Matrix中的变换。
+         *
          *   2.2.2 使用Matrix来做自定义变换
+         *         Matrix的自定义变换使用的是setPolyToPoly()方法。
+         *
+         *         2.2.2.1  Matrix.setPolyToPoly(float[] src,
+         *                                       int srcIndex,
+         *                                       float[] dst,
+         *                                       int dstIndex,
+         *                                       int pointCount)
+         *                  用点对点映射的方式设置变换
+         *
+         *         poly就是「多」的意思。
+         *         setPolyToPoly()的作用是通过多点的映射的方式来直接设置变换。
+         *         「多点映射」的意思就是把指定的点移动到给出的位置,从而发生形变。
+         *         例如:(0,0) ->(100,100) 表示把(0,0)位置的像素移动(100,100)的位置,这个是单点的映射。
+         *         单点映射可以实现平移。
+         *         而多点的映射,就可以让绘制内容任意地扭曲。
+         *
+         *         src 和 dst 是源点集合目标点集;
+         *         srcIndex 和 dstIndex 是第一个点的偏移;
+         *         pointCount是采集的点的个数(个数不能大于4,因为大于4个点就无法计算变换了)
+         *
+         *
+         *   2.3 使用Camera来做三维变换
+         *   Camera 的三维变换有三类: 旋转、平移、移动相机
+         *
+         *  2.3.1 Camera.rotate*() 三维旋转
+         *
+         *
+         *
+         *
          *
          *
          *

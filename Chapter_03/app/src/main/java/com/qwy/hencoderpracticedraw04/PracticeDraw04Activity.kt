@@ -18,22 +18,58 @@ class PracticeDraw04Activity : AppCompatActivity() {
 
     var pageModels: MutableList<PageModel> = arrayListOf(
         PageModel(
-            R.layout.sample_clip_rect, R.string.title_clip_rect, R.layout.practice_clip_rect
+            R.layout.sample_clip_rect,
+            R.string.title_clip_rect,
+            R.layout.practice_clip_rect
         ),
         PageModel(
-            R.layout.sample_clip_path, R.string.title_clip_path, R.layout.practice_clip_path
+            R.layout.sample_clip_path,
+            R.string.title_clip_path,
+            R.layout.practice_clip_path
         ),
         PageModel(
-            R.layout.sample_translate, R.string.title_translate, R.layout.practice_translate
+            R.layout.sample_translate,
+            R.string.title_translate,
+            R.layout.practice_translate
         ),
         PageModel(
-            R.layout.sample_scale, R.string.title_scale, R.layout.practice_scale
+            R.layout.sample_scale,
+            R.string.title_scale,
+            R.layout.practice_scale
         ),
         PageModel(
-            R.layout.sample_rotate, R.string.title_rotate, R.layout.practice_rotate
+            R.layout.sample_rotate,
+            R.string.title_rotate,
+            R.layout.practice_rotate
         ),
         PageModel(
-            R.layout.sample_skew, R.string.title_skew, R.layout.practice_skew
+            R.layout.sample_skew,
+            R.string.title_skew,
+            R.layout.practice_skew
+        ),
+        PageModel(
+            R.layout.sample_matrix_translate,
+            R.string.title_matrix_translate,
+            R.layout.practice_matrix_translate
+        ),
+        PageModel(
+            R.layout.sample_matrix_scale,
+            R.string.title_matrix_scale,
+            R.layout.practice_matrix_scale
+        ),
+        PageModel(
+            R.layout.sample_matrix_rotate,
+            R.string.title_matrix_rotate,
+            R.layout.practice_matrix_rotate
+        ),
+        PageModel(
+            R.layout.sample_matrix_skew,
+            R.string.title_matrix_skew,
+            R.layout.practice_matrix_skew
+        ),PageModel(
+            R.layout.sample_camera_rotate,
+            R.string.title_camera_rotate,
+            R.layout.practice_camera_rotate
         ),
     )
 
