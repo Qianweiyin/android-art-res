@@ -26,6 +26,7 @@
         <activity android:name="com.qwy.hencoderpracticedraw03.PracticeDraw03Activity" />
         <activity android:name="com.qwy.hencoderpracticedraw04.PracticeDraw04Activity" />
         <activity android:name="com.qwy.hencoderpracticedraw05.PracticeDraw05Activity" />
+        <activity android:name="com.qwy.hencoderpracticedraw06.PracticeDraw06Activity" />
     </application>
 
 </manifest>

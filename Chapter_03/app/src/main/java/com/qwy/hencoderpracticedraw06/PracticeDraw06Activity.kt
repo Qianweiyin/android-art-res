@@ -1,4 +1,4 @@
-package com.qwy.hencoderpracticedraw04
+package com.qwy.hencoderpracticedraw06
 
 import android.os.Bundle
 import android.view.View
@@ -12,64 +12,50 @@ import com.google.android.material.tabs.TabLayout
 import com.qwy.chapter_03.R
 import com.qwy.hencoderpracticedraw01.PageFragment
 
-class PracticeDraw04Activity : AppCompatActivity() {
+class PracticeDraw06Activity : AppCompatActivity() {
     var tabLayout: TabLayout? = null
     var pager: ViewPager? = null
 
     var pageModels: MutableList<PageModel> = arrayListOf(
         PageModel(
-            R.layout.sample_clip_rect,
-            R.string.title_clip_rect,
-            R.layout.practice_clip_rect
+            R.layout.sample_translation,
+            R.string.title_translation,
+            R.layout.practice_translation
         ),
         PageModel(
-            R.layout.sample_clip_path,
-            R.string.title_clip_path,
-            R.layout.practice_clip_path
-        ),
-        PageModel(
-            R.layout.sample_translate,
-            R.string.title_translate,
-            R.layout.practice_translate
+            R.layout.sample_rotation,
+            R.string.title_rotation,
+            R.layout.practice_rotation
         ),
         PageModel(
             R.layout.sample_scale_06,
-            R.string.title_scale,
+            R.string.title_scale_06,
             R.layout.practice_scale_06
         ),
         PageModel(
-            R.layout.sample_rotate,
-            R.string.title_rotate,
-            R.layout.practice_rotate
+            R.layout.sample_alpha,
+            R.string.title_alpha,
+            R.layout.practice_alpha
         ),
         PageModel(
-            R.layout.sample_skew,
-            R.string.title_skew,
-            R.layout.practice_skew
+            R.layout.sample_multi_properties,
+            R.string.title_multi_properties,
+            R.layout.practice_multi_properties
         ),
         PageModel(
-            R.layout.sample_matrix_translate,
-            R.string.title_matrix_translate,
-            R.layout.practice_matrix_translate
+            R.layout.sample_duration,
+            R.string.title_duration,
+            R.layout.practice_duration
         ),
         PageModel(
-            R.layout.sample_matrix_scale,
-            R.string.title_matrix_scale,
-            R.layout.practice_matrix_scale
+            R.layout.sample_interpolator,
+            R.string.title_interpolator,
+            R.layout.practice_interpolator
         ),
         PageModel(
-            R.layout.sample_matrix_rotate,
-            R.string.title_matrix_rotate,
-            R.layout.practice_matrix_rotate
-        ),
-        PageModel(
-            R.layout.sample_matrix_skew,
-            R.string.title_matrix_skew,
-            R.layout.practice_matrix_skew
-        ),PageModel(
-            R.layout.sample_camera_rotate,
-            R.string.title_camera_rotate,
-            R.layout.practice_camera_rotate
+            R.layout.sample_object_anomator,
+            R.string.title_object_animator,
+            R.layout.practice_object_animator
         ),
     )
 
