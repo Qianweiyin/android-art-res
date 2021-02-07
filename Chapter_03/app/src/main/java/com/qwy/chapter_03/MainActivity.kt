@@ -27,39 +27,11 @@ class MainActivity : AppCompatActivity() {
         //
     }
 
-    // Corresponding method handler 'public void onClickView01(android.view.View)' not found
-    fun onClickView01(view: View) {
-        val intent = Intent(this, PracticeDraw01Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView02(view: View) {
-        val intent = Intent(this, PracticeDraw02Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView03(view: View) {
-        val intent = Intent(this, PracticeDraw03Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView04(view: View) {
-        val intent = Intent(this, PracticeDraw04Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView05(view: View) {
-        val intent = Intent(this, PracticeDraw05Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView06(view: View) {
-        val intent = Intent(this, PracticeDraw06Activity::class.java)
-        startActivity(intent)
-    }
-
-    fun onClickView07(view: View) {
-        val intent = Intent(this, PracticeDraw07Activity::class.java)
+    /**
+     * 绘制
+     */
+    fun henCoderDraw01(view: View) {
+        val intent = Intent(this, HenCoderDraw01::class.java)
         startActivity(intent)
     }
 }

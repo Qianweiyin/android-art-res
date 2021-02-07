@@ -30,6 +30,8 @@
         <activity
             android:name="com.qwy.hencoderpracticedraw07.PracticeDraw07Activity"
             android:hardwareAccelerated="false" />
+        <activity android:name=".HenCoderDraw01" />
+        <activity android:name="com.qwy.hencoderkeyboard03.KeyBoard03Activity" />
     </application>
 
 </manifest>

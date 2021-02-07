@@ -12,7 +12,6 @@
     <string name="title_camera_rotate">Camera.rotateX/Y()</string>
     <string name="title_camera_rotate_fixed">Camera.rotateX/Y() 修正版</string>
     <string name="title_camera_rotate_hitting_face">Camera.rotateX/Y() 糊脸修正</string>
-    <string name="title_flipboard">翻页效果</string>
     <string name="title_fill_path_04">setFillPath()</string>
     <string name="title_text_path_04">setTextPath()</string>
 </resources>

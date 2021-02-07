@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewOutlineProvider
@@ -37,15 +38,34 @@ class Sample01Translation : RelativeLayout {
         animateBt = findViewById(R.id.animateBt)
         imageView = findViewById(R.id.imageView)
 
+
+
         if (SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             // 给音乐图标加上合适的阴影
             imageView?.outlineProvider = MusicOutlineProvider()
         }
 
 
+        Log.e(
+            "QwyView",
+            "onAttachedToWindow left :  ${imageView?.left}  top:  ${imageView?.top}   translationX:  ${imageView?.translationX} "
+        )
+
         animateBt?.setOnClickListener(OnClickListener {
             when (translationState) {
-                0 -> imageView?.animate()?.translationX(dpToPixel(100f))
+                0 -> {
+                    imageView?.animate()?.translationX(dpToPixel(100f))
+
+//                    Log.e(
+//                        "QwyView",
+//                        "dpToPixel  :  ${dpToPixel(100f)}"
+//                    )
+
+                    Log.e(
+                        "QwyView",
+                        "onClick left :  ${imageView?.left}  top:  ${imageView?.top} translationX:  ${imageView?.translationX} "
+                    )
+                }
                 1 -> imageView?.animate()?.translationX(0f)
                 2 -> imageView?.animate()?.translationY(dpToPixel(50f))
                 3 -> imageView?.animate()?.translationY(0f)
