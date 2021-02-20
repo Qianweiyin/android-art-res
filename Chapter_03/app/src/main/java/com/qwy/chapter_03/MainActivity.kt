@@ -1,16 +1,10 @@
 package com.qwy.chapter_03
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.qwy.hencoderpracticedraw01.PracticeDraw01Activity
-import com.qwy.hencoderpracticedraw02.PracticeDraw02Activity
-import com.qwy.hencoderpracticedraw03.PracticeDraw03Activity
-import com.qwy.hencoderpracticedraw04.PracticeDraw04Activity
-import com.qwy.hencoderpracticedraw05.PracticeDraw05Activity
-import com.qwy.hencoderpracticedraw06.PracticeDraw06Activity
-import com.qwy.hencoderpracticedraw07.PracticeDraw07Activity
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +23,33 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 绘制
+     *
+     * 自定义 View 1-1 绘制基础
      */
     fun henCoderDraw01(view: View) {
         val intent = Intent(this, HenCoderDraw01::class.java)
         startActivity(intent)
     }
+
+
+    fun onButtonClick(v: View) {
+        when (v.id) {
+            //View基础
+            R.id.button1 -> {
+                val intent = Intent(this, TestActivity::class.java)
+                startActivity(intent)
+            }
+            //滑动冲突场景1-外部拦截
+            R.id.button2 -> {
+                val intent = Intent(this, DemoActivity01::class.java)
+                startActivity(intent)
+            }
+            //滑动冲突场景1-内部拦截
+            R.id.button3 -> {
+//                val intent = Intent(this, DemoActivity_2::class.java)
+//                startActivity(intent)
+            }
+        }
+    }
+
 }

@@ -32,6 +32,8 @@
             android:hardwareAccelerated="false" />
         <activity android:name=".HenCoderDraw01" />
         <activity android:name="com.qwy.hencoderkeyboard03.KeyBoard03Activity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".DemoActivity01" />
     </application>
 
 </manifest>

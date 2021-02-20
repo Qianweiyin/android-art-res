@@ -14,4 +14,21 @@
         android:text="自定义 View 1-1 绘制基础" />
 
 
+    <Button
+        android:id="@+id/button1"
+        style="@style/AppTheme.Button.Green"
+        android:onClick="onButtonClick"
+        android:text="View基础" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/AppTheme.Button.Green"
+        android:onClick="onButtonClick"
+        android:text="滑动冲突场景1-外部拦截" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/AppTheme.Button.Green"
+        android:onClick="onButtonClick"
+        android:text="滑动冲突场景1-内部拦截" />
 </LinearLayout>
