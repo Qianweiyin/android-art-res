@@ -45,7 +45,7 @@ class TestActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClick
 
         myButton = findViewById<View>(R.id.myButton) as MyButton
         // onTouch lambda should call View#performClick when a click is detected
-        mButton2.setOnTouchListener { _, event ->
+        myButton.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> Log.e(TAG2, "onTouch ACTION_DOWN")
                 MotionEvent.ACTION_MOVE -> Log.e(TAG2, "onTouch ACTION_MOVE")

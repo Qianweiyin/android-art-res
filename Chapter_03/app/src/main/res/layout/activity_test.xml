@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qwy.chapter_03.motioneventpractice.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,4 +36,4 @@
         android:gravity="center"
         android:text="click me" />
 
-</LinearLayout>
+</com.qwy.chapter_03.motioneventpractice.MyLinearLayout>

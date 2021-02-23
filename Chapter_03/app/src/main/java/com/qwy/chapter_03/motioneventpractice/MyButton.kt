@@ -6,6 +6,12 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatButton
 
+/**
+ *
+ * Android View 事件分发机制 源码解析
+ *
+ * https://blog.csdn.net/lmj623565791/article/details/38960443
+ */
 class MyButton : AppCompatButton {
     companion object {
         private const val TAG = "MyButton"

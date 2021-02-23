@@ -42,7 +42,8 @@ android {
                     'src/main/res-hc-05',
                     'src/main/res-hc-06',
                     'src/main/res-hc-07',
-                    'src/main/res-keyboard-03'
+                    'src/main/res-keyboard-03',
+                    'src/main/res-lagou-14'
             ]
         }
     }

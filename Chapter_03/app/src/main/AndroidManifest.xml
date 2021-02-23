@@ -34,6 +34,10 @@
         <activity android:name="com.qwy.hencoderkeyboard03.KeyBoard03Activity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".DemoActivity01" />
+        <activity android:name="com.qwy.lagoucourse14.LaGouMainActivity" />
+        <activity android:name="com.qwy.lagoucourse14.LaGouTouchMainActivity" />
+        <activity android:name="com.qwy.lagoucourse14.InterceptActivity" />
+        <activity android:name="com.qwy.lagoucourse14.CancelEventActivity" />
     </application>
 
 </manifest>

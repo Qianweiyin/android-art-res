@@ -31,4 +31,12 @@
         style="@style/AppTheme.Button.Green"
         android:onClick="onButtonClick"
         android:text="滑动冲突场景1-内部拦截" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="laGou14"
+        android:text="拉钩-14讲Android Touch事件分发时序" />
+
 </LinearLayout>
