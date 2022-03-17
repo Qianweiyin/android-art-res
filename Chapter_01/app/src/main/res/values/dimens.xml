@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="y18">18px</dimen>
+    <dimen name="y26">26px</dimen>
+    <dimen name="y40">40px</dimen>
+
+
+</resources>

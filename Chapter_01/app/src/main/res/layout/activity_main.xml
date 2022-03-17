@@ -1,24 +1,56 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button1"
+
+    <SurfaceView
+        android:id="@+id/surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.qwy.scan.QrCodeForegroundPreview
+        android:id="@+id/qr_viewfinder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.qwy.scan.CardViewfinderView
+        android:id="@+id/card_viewfinder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_scan_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="open activity B" />
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/qrcode_scan_line" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="150dp"
+
+    <LinearLayout
+        android:id="@+id/ll_light"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="A">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50.0dip"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <requestFocus />
-    </EditText>
+        <ImageView
+            android:id="@+id/iv_qrcode_light_open"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/qrcode_scan_light_open" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_qrcode_light_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/qrcode_scan_light_open"
+            android:textColor="@color/purple_700" />
+    </LinearLayout>
+
+</RelativeLayout>
