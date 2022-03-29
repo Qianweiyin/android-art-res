@@ -1,5 +1,8 @@
-package com.qwy.chapter_01.qrCode;
+package com.qwy.qrcode;
 
+/**
+ *  todo qwyelink BarcodeFormat
+ */
 public enum QRCodeFormat {
     UNKNOWN,
     AZTEC,

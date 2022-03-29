@@ -2,7 +2,6 @@ package com.qwy.chapter_01;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,18 +18,15 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.zxing.ELinkClassE;
-import com.google.zxing.ELinkClassT;
 import com.google.zxing.SurfaceHolderInterface;
-import com.google.zxing.ELinkInterfaceD;
-import com.google.zxing.TodoResult;
-import com.google.zxing.ScanSurfaceHolder;
-import com.google.zxing.client.android.FinishListener;
-import com.qwy.scan.Interface02;
-import com.qwy.scan.QrCodeForegroundPreview;
+import com.qwy.qrcode.Result;
+import com.qwy.qrcode.a.ScanSurfaceHolder;
+import com.qwy.scan.a.InterfaceB;
+import com.qwy.scan.preview.QrCodeForegroundPreview;
+import com.qwy.videogo.scan.main.FinishListener;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SurfaceHolderInterface, Interface02.a {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SurfaceHolderInterface, InterfaceB.a {
 
 
     ScanSurfaceHolder scanSurfaceHolder;
@@ -191,15 +187,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public static void a(Activity activity, int i, int i2, String str) {
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra("from_type", i2);
-        if (str != null && !ELinkClassT.mG(str)) {
-            intent.putExtra("title_bar_name", str);
-        }
-        intent.putExtra("mode_tag", 1);
-        activity.startActivityForResult(intent, i);
-    }
+//    public static void a(Activity activity, int i, int i2, String str) {
+//        Intent intent = new Intent(activity, MainActivity.class);
+//        intent.putExtra("from_type", i2);
+//        if (str != null && !ELinkClassT.mG(str)) {
+//            intent.putExtra("title_bar_name", str);
+//        }
+//        intent.putExtra("mode_tag", 1);
+//        activity.startActivityForResult(intent, i);
+//    }
 
     /**
      * 扫码回调 Handler scan result
@@ -207,26 +203,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param result
      */
     @Override
-    public void handleDecode(TodoResult result) {
+    public void handleDecode(Result result) {
         Log.e("QwyZxing", "result");
 
-        ELinkClassE.a(this, result, gHo)
-                .a(new ELinkInterfaceD() {
-                    @Override
-                    public void afY() {
-                        scanSurfaceHolder.reScan();
-                    }
-
-                    @Override
-                    public void k(int i, Object obj) {
-
-                    }
-
-                    @Override
-                    public void kc(String str) {
-                        Toast.makeText(MainActivity.this, getString(R.string.toast_1), Toast.LENGTH_LONG).show();
-                    }
-                });
+//        ELinkClassE.a(this, result, gHo)
+//                .a(new ELinkInterfaceD() {
+//                    @Override
+//                    public void afY() {
+//                        scanSurfaceHolder.reScan();
+//                    }
+//
+//                    @Override
+//                    public void k(int i, Object obj) {
+//
+//                    }
+//
+//                    @Override
+//                    public void kc(String str) {
+//                        Toast.makeText(MainActivity.this, getString(R.string.toast_1), Toast.LENGTH_LONG).show();
+//                    }
+//                });
     }
 
     @Override
@@ -328,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("QwyZxing", "onPause");
         int i = this.mode;
         if (i == 0 || i == 2) {
-            this.scanSurfaceHolder.btK();
+            this.scanSurfaceHolder.quitSynchronously();
         }
         this.scanSurfaceHolder.pause();
         super.onPause();

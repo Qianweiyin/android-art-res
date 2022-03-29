@@ -1,6 +1,6 @@
-package com.qwy.scan;
+package com.qwy.scan.a;
 
-public interface Interface02 {
+public interface InterfaceB {
     public interface a {
         void buD();
 

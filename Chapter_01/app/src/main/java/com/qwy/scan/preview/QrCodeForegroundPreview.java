@@ -1,10 +1,11 @@
-package com.qwy.scan;
+package com.qwy.scan.preview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.WindowManager;
 
 import com.qwy.chapter_01.R;
+import com.qwy.qrcode.view.QrCodeForegroundView;
 
 
 public class QrCodeForegroundPreview extends QrCodeForegroundView {

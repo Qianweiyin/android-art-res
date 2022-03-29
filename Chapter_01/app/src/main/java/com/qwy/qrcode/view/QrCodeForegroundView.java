@@ -1,4 +1,4 @@
-package com.qwy.scan;
+package com.qwy.qrcode.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,7 +11,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.zxing.QrCodeViewInterface;
-import com.google.zxing.client.android.camera.CameraManager;
+import com.google.zxing.camera.CameraManager;
+import com.qwy.scan.ResultPoint;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
