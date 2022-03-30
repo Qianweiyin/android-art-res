@@ -113,7 +113,7 @@ public final class CaptureActivityHandler extends Handler {
         Log.e("QwyZxing", " R.id.quit : " + R.id.quit);
         Log.e("QwyZxing", " R.id.decode : " + R.id.decode);
         Message.obtain(decodeThread.getHandler(), 3).sendToTarget();
-        cameraManager.requestPreviewFrame(decodeThread.getHandler(), 1);
+        cameraManager.requestPreviewFrame(decodeThread.getHandler(),  R.id.decode);
     }
 
     public void start() {

@@ -108,12 +108,12 @@ final class DecodeHandler extends Handler {
         if (result != null) {
             Log.d(TAG, "Found barcode in " + times + " ms; format: " + result.getFormat());
             if (handler != null) {
-                message = Message.obtain(handler, 5, result);
+                message = Message.obtain(handler, R.id.decode_succeeded, result);
             } else {
                 return;
             }
         } else if (handler != null) {
-            message = Message.obtain(handler, 4);
+            message = Message.obtain(handler, R.id.decode_failed);
         } else {
             return;
         }
@@ -133,6 +133,9 @@ final class DecodeHandler extends Handler {
             int i = message.what;
             boolean z = true;
 //            if (i != 1) {
+
+            Log.e("QwyZxing", "i  : " + i);
+
             if (i != R.id.decode) {
                 if (i != 2) {
                     z = false;
