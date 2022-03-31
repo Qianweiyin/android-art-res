@@ -1,5 +1,6 @@
 package com.qwy.qrcode.a;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,17 +10,17 @@ import com.google.zxing.camera.CameraManager;
 import com.qwy.qrcode.ProcessType;
 
 public class CaptureActivityClass implements CaptureActivityInterface {
-    private CaptureActivityInterface.a mCaptureInterface;
+    private CaptureActivityInterface mCaptureInterface;
     private CaptureActivityHandler mCaptureActivityHandler;
 
-    public CaptureActivityClass(CameraManager cameraManager, CaptureActivityInterface.a captureInterface) {
+    public CaptureActivityClass(CameraManager cameraManager, CaptureActivityInterface captureInterface) {
         Log.e("QwyZxing", "constructor 2 ");
 
         mCaptureInterface = captureInterface;
         mCaptureActivityHandler = new CaptureActivityHandler(captureInterface, ProcessType.ALL, cameraManager);
     }
 
-    public CaptureActivityClass(CameraManager cameraManager, String type, a captureInterface) {
+    public CaptureActivityClass(CameraManager cameraManager, String type, CaptureActivityInterface captureInterface) {
         Log.e("QwyZxing", "constructor 1 mType   : " + type);
 
         mCaptureInterface = captureInterface;
@@ -32,7 +33,7 @@ public class CaptureActivityClass implements CaptureActivityInterface {
 
 
     public void quitSynchronously() {
-        CaptureActivityInterface.a captureInterface = mCaptureInterface;
+        CaptureActivityInterface captureInterface = mCaptureInterface;
         if (captureInterface != null) {
             captureInterface.animatorEnd();
         }
@@ -59,7 +60,7 @@ public class CaptureActivityClass implements CaptureActivityInterface {
         if (mCaptureActivityHandler == null) {
             start();
         }
-        a captureInterface = mCaptureInterface;
+        CaptureActivityInterface captureInterface = mCaptureInterface;
         if (captureInterface != null) {
             captureInterface.animatorStart();
         }
@@ -74,5 +75,15 @@ public class CaptureActivityClass implements CaptureActivityInterface {
         Log.e("QwyZxing", "start");
         mCaptureActivityHandler.start();
         mCaptureInterface.animatorStart();
+    }
+
+    @Override
+    public CameraManager getCameraManager() {
+        return null;
+    }
+
+    @Override
+    public Handler getHandler() {
+        return null;
     }
 }

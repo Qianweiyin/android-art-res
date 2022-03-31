@@ -6,25 +6,25 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class d implements InterfaceA, InterfaceB {
+public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     private static final String TAG = "QwyZxing";
-    private static d gEp;
-    private List<InterfaceA> gEq = new ArrayList();
-    private List<InterfaceB> gEr = new ArrayList();
+    private static CameraInputInfo cameraInputInfo;
+    private List<VisionImageProcessor> gEq = new ArrayList();
+    private List<InputInfo> inputInfoList = new ArrayList();
     //    private String processName = CookieSpecs.DEFAULT;
     private String processName = "default";
 
-    public static d getInstance() {
-        if (gEp == null) {
-            gEp = new d();
+    public static CameraInputInfo getInstance() {
+        if (cameraInputInfo == null) {
+            cameraInputInfo = new CameraInputInfo();
         }
-        return gEp;
+        return cameraInputInfo;
     }
 
     @Override
     public Bitmap getBitmap(String str, int width, int height, Bitmap bitmap, String str2) {
         Log.d(TAG, "encode: ");
-        for (InterfaceB bVar : gEr) {
+        for (InputInfo bVar : inputInfoList) {
             Bitmap mBitmap = bVar.getBitmap(str, width, height, bitmap, str2);
             if (mBitmap != null) {
                 return mBitmap;
@@ -36,7 +36,7 @@ public class d implements InterfaceA, InterfaceB {
     @Override
     public Result handleBitmap(ProcessType processType, Bitmap bitmap) {
         Log.d(TAG, "decode: bitmap start ");
-        for (InterfaceA aVar : this.gEq) {
+        for (VisionImageProcessor aVar : this.gEq) {
             Log.d(TAG, "decode: bitmap start " + aVar.getName());
             Result result = aVar.handleBitmap(processType, bitmap);
             if (result != null) {
@@ -50,9 +50,9 @@ public class d implements InterfaceA, InterfaceB {
     }
 
     @Override
-    public Result handleQrCode(ProcessType processType, byte[] bArr, int width, int height, InterfaceA.C0521a aVar) {
+    public Result handleQrCode(ProcessType processType, byte[] bArr, int width, int height, VisionImageProcessor.C0521a aVar) {
         Log.d(TAG, "decode: data");
-        for (InterfaceA aVar2 : gEq) {
+        for (VisionImageProcessor aVar2 : gEq) {
             Log.d(TAG, "decode: data start " + aVar2.getName());
             Result result = aVar2.handleQrCode(processType, bArr, width, height, aVar);
             Log.e(TAG, "decode:  null == result " + (null == result));
@@ -67,12 +67,12 @@ public class d implements InterfaceA, InterfaceB {
         return null;
     }
 
-    public void addQrCode(InterfaceA aVar) {
+    public void addQrCode(VisionImageProcessor aVar) {
         gEq.add(aVar);
     }
 
-    public void addBitmap(InterfaceB bVar) {
-        this.gEr.add(bVar);
+    public void addBitmap(InputInfo inputInfo) {
+        inputInfoList.add(inputInfo);
     }
 
     @Override

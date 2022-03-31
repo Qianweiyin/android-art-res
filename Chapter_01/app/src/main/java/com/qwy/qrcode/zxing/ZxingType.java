@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.common.GlobalHistogramBinarizer;
-import com.qwy.qrcode.InterfaceA;
+import com.qwy.qrcode.VisionImageProcessor;
 import com.qwy.qrcode.ProcessType;
 import com.qwy.qrcode.Result;
 
@@ -18,7 +18,7 @@ public class ZxingType extends a {
     }
 
     @Override
-    public Result handleQrCode(ProcessType processType, byte[] bArr, int i, int i2, InterfaceA.C0521a aVar) {
+    public Result handleQrCode(ProcessType processType, byte[] bArr, int i, int i2, VisionImageProcessor.C0521a aVar) {
         return super.handleQrCode(processType, bArr, i, i2, aVar);
     }
 

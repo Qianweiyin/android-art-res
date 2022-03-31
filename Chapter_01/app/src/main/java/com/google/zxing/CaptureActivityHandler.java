@@ -34,7 +34,7 @@ public final class CaptureActivityHandler extends Handler {
 
     private static final String TAG = "CaptureActivityHandler";
     private final CameraManager cameraManager;
-    private final CaptureActivityInterface.a captureActivityInterface;
+    private final CaptureActivityInterface captureActivityInterface;
     private final DecodeThread decodeThread;
     private State state;
 
@@ -46,7 +46,7 @@ public final class CaptureActivityHandler extends Handler {
     }
 
 
-    public CaptureActivityHandler(CaptureActivityInterface.a captureActivityInterface, ProcessType processType, CameraManager cameraManager) {
+    public CaptureActivityHandler(CaptureActivityInterface captureActivityInterface, ProcessType processType, CameraManager cameraManager) {
         this.captureActivityInterface = captureActivityInterface;
         //开启一条解码线程
         this.decodeThread = new DecodeThread(captureActivityInterface, processType);

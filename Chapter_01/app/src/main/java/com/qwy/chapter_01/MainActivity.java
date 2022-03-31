@@ -28,6 +28,7 @@ import com.qwy.videogo.scan.main.FinishListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SurfaceHolderInterface, InterfaceB.a {
 
+    private static final String TAG = "QwyMainActivity";
 
     ScanSurfaceHolder scanSurfaceHolder;
     private ScaleGestureDetector scaleGestureDetector;
@@ -72,28 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.mScaleFactor = scanSurfaceHolder.onScale(mScaleFactor);
         }
     }
-
-
-//    private void Bq(String str) {
-//        ab.aqf().ab(this, d.np(R.string.recognizing));
-//        e.x(this, str, this.gHo).a(new com.yunzhijia.scan.c.c() { // from class: com.yunzhijia.scan.CameraFetureBizActivity.1
-//            @Override // com.yunzhijia.scan.c.c
-//            public void afY() {
-//            }
-//
-//            @Override // com.yunzhijia.scan.c.c
-//            public void k(int i, Object obj) {
-//                ab.aqf().aqg();
-//            }
-//
-//            @Override // com.yunzhijia.scan.c.c
-//            public void kc(String str2) {
-//                ab.aqf().aqg();
-//                CameraFetureBizActivity cameraFetureBizActivity = CameraFetureBizActivity.this;
-//                as.a(cameraFetureBizActivity, cameraFetureBizActivity.getString(R.string.toast_2));
-//            }
-//        });
-//    }
 
 
     @Override
@@ -177,25 +156,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 string = getResources().getString(R.string.qrcode_scan_light_open);
             }
             textView.setText(string);
-//            au.traceEvent("scan_flashlight", z ? "打开" : "关闭");
             scanSurfaceHolder.setTorch(isOpen);
             gHw = isOpen;
         } catch (Exception unused) {
-//            as.a(this, d.np(R.string.qrcode_scan_open_flashlight_error));
             Toast.makeText(this, "qrcode_scan_open_flashlight_error", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-//    public static void a(Activity activity, int i, int i2, String str) {
-//        Intent intent = new Intent(activity, MainActivity.class);
-//        intent.putExtra("from_type", i2);
-//        if (str != null && !ELinkClassT.mG(str)) {
-//            intent.putExtra("title_bar_name", str);
-//        }
-//        intent.putExtra("mode_tag", 1);
-//        activity.startActivityForResult(intent, i);
-//    }
 
     /**
      * 扫码回调 Handler scan result
@@ -204,41 +171,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void handleDecode(Result result) {
-        Log.e("QwyZxing", "result");
+        Log.e(TAG, "result");
 
-//        ELinkClassE.a(this, result, gHo)
-//                .a(new ELinkInterfaceD() {
-//                    @Override
-//                    public void afY() {
-//                        scanSurfaceHolder.reScan();
-//                    }
-//
-//                    @Override
-//                    public void k(int i, Object obj) {
-//
-//                    }
-//
-//                    @Override
-//                    public void kc(String str) {
-//                        Toast.makeText(MainActivity.this, getString(R.string.toast_1), Toast.LENGTH_LONG).show();
-//                    }
-//                });
     }
 
     @Override
     public void initCamera() {
-        Log.e("QwyZxing", "initCamera");
+        Log.e(TAG, "initCamera");
         scanSurfaceHolder.initCamera();
     }
 
     @Override
     public void start() {
-        Log.e("QwyZxing", "start");
+        Log.e(TAG, "start");
     }
 
     @Override
     public void initCameraFail() {
-        Log.e("QwyZxing", "initCameraFail");
+        Log.e(TAG, "initCameraFail");
         displayFrameworkBugMessageAndExit();
 
     }
@@ -321,12 +271,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPause() {
-        Log.e("QwyZxing", "onPause");
+        Log.e(TAG, "onPause");
         int i = this.mode;
         if (i == 0 || i == 2) {
-            this.scanSurfaceHolder.quitSynchronously();
+            scanSurfaceHolder.quitSynchronously();
         }
-        this.scanSurfaceHolder.pause();
+        scanSurfaceHolder.pause();
         super.onPause();
     }
 

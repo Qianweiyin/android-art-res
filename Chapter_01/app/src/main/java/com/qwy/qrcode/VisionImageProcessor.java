@@ -4,23 +4,25 @@ import android.graphics.Bitmap;
 
 import com.google.zxing.camera.CameraManager;
 
-public interface InterfaceA {
+/**
+ * An interface to process the images with different vision detectors and custom image models.
+ */
+public interface VisionImageProcessor {
     class C0521a {
         private CameraManager mCameraManager;
 
         public C0521a(CameraManager cameraManager) {
-            this.mCameraManager = cameraManager;
+            mCameraManager = cameraManager;
         }
 
         public CameraManager getCameraManager() {
-            return this.mCameraManager;
+            return mCameraManager;
         }
     }
 
     Result handleBitmap(ProcessType processType, Bitmap bitmap);
 
     /**
-     *
      * @param processType
      * @param byteArray
      * @param width

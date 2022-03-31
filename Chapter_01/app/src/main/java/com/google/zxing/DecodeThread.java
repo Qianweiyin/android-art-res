@@ -31,12 +31,12 @@ import java.util.concurrent.CountDownLatch;
 final class DecodeThread extends Thread {
 
 
-    private final CaptureActivityInterface.a captureActivityInterface;
+    private final CaptureActivityInterface captureActivityInterface;
     private final ProcessType processType;
     private Handler handler;
     private final CountDownLatch handlerInitLatch = new CountDownLatch(1);
 
-    DecodeThread(CaptureActivityInterface.a captureActivityInterface,
+    DecodeThread(CaptureActivityInterface captureActivityInterface,
                  ProcessType processType) {
         this.captureActivityInterface = captureActivityInterface;
         this.processType = processType;

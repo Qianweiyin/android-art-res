@@ -24,7 +24,7 @@ import com.qwy.qrcode.Result;
 
 import java.io.IOException;
 
-public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivityInterface.a {
+public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivityInterface {
     private static final String TAG = "ScanSurfaceHolder";
     private Activity activity;
     private CameraManager mCameraManager;

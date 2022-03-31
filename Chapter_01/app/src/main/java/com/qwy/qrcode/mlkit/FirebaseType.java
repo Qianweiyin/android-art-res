@@ -1,7 +1,6 @@
-package com.qwy.qrcode.firebase;
+package com.qwy.qrcode.mlkit;
 
 import android.graphics.Bitmap;
-import android.graphics.ImageFormat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,7 +11,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
-import com.qwy.qrcode.InterfaceA;
+import com.qwy.qrcode.VisionImageProcessor;
 import com.qwy.qrcode.ProcessType;
 import com.qwy.qrcode.QRCodeFormat;
 import com.qwy.qrcode.Result;
@@ -20,7 +19,7 @@ import com.qwy.qrcode.Result;
 import java.util.List;
 
 
-public class FirebaseType implements InterfaceA {
+public class FirebaseType implements VisionImageProcessor {
 
     private BarcodeScanner getProcessType(ProcessType processType) {
         Log.e("QwyFirebase", "processType.name() : " + processType.name());
@@ -52,11 +51,9 @@ public class FirebaseType implements InterfaceA {
                 if (!isCanceled) {
                     Barcode barcode = barcodeList.get(0);
                     String rawValue = barcode.getRawValue();
-                    String displayValue = barcode.getDisplayValue();
                     int format = barcode.getFormat();
 
                     Log.e("QwyFirebase", "firebase rawValue : " + rawValue);
-                    Log.e("QwyFirebase", "firebase displayValue : " + displayValue);
                     Log.e("QwyFirebase", "firebase format : " + format);
 
                     if (!TextUtils.isEmpty(rawValue)) {

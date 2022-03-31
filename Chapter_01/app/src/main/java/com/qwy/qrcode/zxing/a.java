@@ -12,7 +12,7 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.ReaderException;
 import com.google.zxing.DecodeFormatManager;
-import com.qwy.qrcode.InterfaceA;
+import com.qwy.qrcode.VisionImageProcessor;
 import com.qwy.qrcode.ProcessType;
 import com.qwy.qrcode.QRCodeFormat;
 import com.qwy.qrcode.Result;
@@ -22,7 +22,7 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-abstract class a implements InterfaceA {
+abstract class a implements VisionImageProcessor {
 
 
     static final int[] gEE = new int[ProcessType.values().length];

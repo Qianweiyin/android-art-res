@@ -7,17 +7,20 @@ import com.qwy.qrcode.Result;
 
 public interface CaptureActivityInterface {
 
-    interface a {
-        void animatorStart();
-
-        void animatorEnd();
-
-        CameraManager getCameraManager();
-
-        void handleDecode(Result result);
-
-        void drawViewfinder();
-
-        Handler getHandler();
+    default void animatorStart() {
     }
+
+
+    default void animatorEnd() {
+    }
+
+    CameraManager getCameraManager();
+
+    default void handleDecode(Result result) {
+    }
+
+    default void drawViewfinder() {
+    }
+
+    Handler getHandler();
 }

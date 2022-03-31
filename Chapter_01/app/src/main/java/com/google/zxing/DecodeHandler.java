@@ -21,8 +21,8 @@ package com.google.zxing;
 import com.qwy.chapter_01.R;
 import com.qwy.qrcode.ProcessType;
 import com.qwy.qrcode.Result;
-import com.qwy.qrcode.InterfaceA;
-import com.qwy.qrcode.d;
+import com.qwy.qrcode.VisionImageProcessor;
+import com.qwy.qrcode.CameraInputInfo;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -41,13 +41,13 @@ import android.util.Log;
 final class DecodeHandler extends Handler {
 
     private static final String TAG = "QwyZxing";
-    private final CaptureActivityInterface.a captureActivityInterface;
+    private final CaptureActivityInterface captureActivityInterface;
     private final ProcessType processType;
     private boolean running = true;
     private boolean cbe = false;
 
 
-    public DecodeHandler(CaptureActivityInterface.a captureActivityInterface, ProcessType processType) {
+    public DecodeHandler(CaptureActivityInterface  captureActivityInterface, ProcessType processType) {
         this.captureActivityInterface = captureActivityInterface;
         this.processType = processType;
     }
@@ -62,31 +62,35 @@ final class DecodeHandler extends Handler {
      * @param height The height of the preview frame.
      */
     private void decode(byte[] data, int width, int height) {
+
+
         Message message;
         long currentTimeMillis = System.currentTimeMillis();
         Log.d("QwyZxing", "data.length : " + (data.length));
+
         Result result = null;
         try {
             // 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
-            byte[] rotatedData = new byte[data.length];
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    rotatedData[x * height + height - y - 1] = data[y * width + x];
+            byte[] bytes = new byte[data.length];
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    bytes[(((j * height) + height) - i) - 1] = data[(i * width) + j];
                 }
             }
-            result = d.btv().handleQrCode(
+            result = CameraInputInfo.getInstance().handleQrCode(
                     processType,
-                    rotatedData,
-                    width,
+                    bytes,
                     height,
-                    new InterfaceA.C0521a(captureActivityInterface.getCameraManager()));
+                    width,
+                    new VisionImageProcessor.C0521a(captureActivityInterface.getCameraManager()));
 
             Log.d("QwyZxing", "result == null : " + (result == null));
+
 
             if (result != null) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("QwyDecode: QRCodeProcessHelper ");
-                sb.append(d.btv().getName());
+                sb.append(CameraInputInfo.getInstance().getName());
                 sb.append("|result=");
                 sb.append(result.getText());
                 Log.d("QwyZxing", sb.toString());
