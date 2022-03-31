@@ -3,7 +3,7 @@ package com.qwy.chapter_01;
 import android.app.Application;
 
 import com.qwy.qrcode.d;
-import com.qwy.qrcode.qrtype.QrCodeType;
+import com.qwy.qrcode.firebase.FirebaseType;
 
 
 public class MyApplication extends Application {
@@ -13,12 +13,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-//        d.btv().handleQrCode(new com.yunzhijia.qrcode.firebase.a());
-//        d.btv().addQrCode(new a());  //ZbarQRCodeProcessor
-//        d.btv().addQrCode(new d.b()); //ZXingQRCodeProcessor1-GlobalHistogramBinarizer
-        d.btv().addQrCode(new QrCodeType());
-//        d.btv().addBitmap(new qrtype.d());
+//        KdweiboApplication
+        d.getInstance().addQrCode(new FirebaseType()); //FirebaseQRCodeProcessor
+//        d.getInstance().addQrCode(new a());  //ZbarQRCodeProcessor
+//        d.getInstance().addQrCode(new d.b()); //ZXingQRCodeProcessor1-GlobalHistogramBinarizer
+//        d.getInstance().addQrCode(new QrCodeType()); //ZXingQRCodeProcessor2-BaseZXingQRCodeProcessor
+//        d.getInstance().addBitmap(new qrtype.d()); //
 
 
     }

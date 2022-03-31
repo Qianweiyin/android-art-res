@@ -19,7 +19,16 @@ public interface InterfaceA {
 
     Result handleBitmap(ProcessType processType, Bitmap bitmap);
 
-    Result handleQrCode(ProcessType processType, byte[] bArr, int width, int height, C0521a aVar);
+    /**
+     *
+     * @param processType
+     * @param byteArray
+     * @param width
+     * @param height
+     * @param aVar
+     * @return
+     */
+    Result handleQrCode(ProcessType processType, byte[] byteArray, int width, int height, C0521a aVar);
 
     String getName();
 }

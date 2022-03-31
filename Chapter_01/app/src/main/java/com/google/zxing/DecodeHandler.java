@@ -65,24 +65,23 @@ final class DecodeHandler extends Handler {
         Message message;
         long currentTimeMillis = System.currentTimeMillis();
         Log.d("QwyZxing", "data.length : " + (data.length));
-
         Result result = null;
         try {
-            byte[] bytes = new byte[data.length];
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    bytes[(((j * height) + height) - i) - 1] = data[(i * width) + j];
+            // 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
+            byte[] rotatedData = new byte[data.length];
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    rotatedData[x * height + height - y - 1] = data[y * width + x];
                 }
             }
             result = d.btv().handleQrCode(
                     processType,
-                    bytes,
-                    height,
+                    rotatedData,
                     width,
+                    height,
                     new InterfaceA.C0521a(captureActivityInterface.getCameraManager()));
 
             Log.d("QwyZxing", "result == null : " + (result == null));
-
 
             if (result != null) {
                 StringBuilder sb = new StringBuilder();
@@ -132,7 +131,6 @@ final class DecodeHandler extends Handler {
         if (running) {
             int i = message.what;
             boolean z = true;
-//            if (i != 1) {
 
             Log.e("QwyZxing", "i  : " + i);
 
@@ -150,6 +148,7 @@ final class DecodeHandler extends Handler {
                 }
                 this.cbe = z;
             } else if (!this.cbe) {
+                //message.what == R.id.decode
                 decode((byte[]) message.obj, message.arg1, message.arg2);
             }
         }

@@ -1,4 +1,4 @@
-package com.qwy.qrcode.qrtype;
+package com.qwy.qrcode.zxing;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -183,12 +183,12 @@ abstract class a implements InterfaceA {
 
 
     // private e a(Map map, l lVar) {
-    private Result a(Map<DecodeHintType, Object> hints, LuminanceSource luminanceSource) {
+    private Result handleResult(Map<DecodeHintType, Object> hints, LuminanceSource luminanceSource) {
         MultiFormatReader multiFormatReader = new MultiFormatReader();
         multiFormatReader.setHints(hints);
         try {
             try {
-                com.google.zxing.Result zxingResult = multiFormatReader.decodeWithState(b(luminanceSource));
+                com.google.zxing.Result zxingResult = multiFormatReader.decodeWithState(toBitmap(luminanceSource));
                 Result result = new Result(zxingResult.getText(), a(zxingResult.getBarcodeFormat()));
                 multiFormatReader.reset();
                 return result;
@@ -197,9 +197,9 @@ abstract class a implements InterfaceA {
                 multiFormatReader.reset();
                 return null;
             }
-        } catch (Throwable th) {
+        } catch (Throwable throwable) {
             multiFormatReader.reset();
-            throw th;
+            throw throwable;
         }
     }
 
@@ -233,7 +233,7 @@ abstract class a implements InterfaceA {
 
     @Override
     public Result handleBitmap(ProcessType processType, Bitmap bitmap) {
-        return a(b(processType), buildLuminanceSource(bitmap));
+        return handleResult(b(processType), buildLuminanceSource(bitmap));
     }
 
     @Override
@@ -251,7 +251,7 @@ abstract class a implements InterfaceA {
         // 也使得二维码数据可以铺满整个屏幕。这样用户在使用程序来扫描二维码时，
         // 尽管不完全对准聚焦框，也可以识别出来。这属于一种策略上的让步，给用户造成了错觉，提高了识别的精度。
         // 解决办法很简单，就是不仅仅使用聚焦框里的图像数据，而是采用全幅图像的数据。
-        return a(b,
+        return handleResult(b,
                 new PlanarYUVLuminanceSource(
                         data,
                         width,
@@ -263,6 +263,6 @@ abstract class a implements InterfaceA {
                         false));
     }
 
-    abstract BinaryBitmap b(LuminanceSource luminanceSource);
+    abstract BinaryBitmap toBitmap(LuminanceSource luminanceSource);
 
 }

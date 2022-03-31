@@ -1,4 +1,4 @@
-package com.qwy.qrcode.qrtype;
+package com.qwy.qrcode.zxing;
 
 import android.graphics.Bitmap;
 
@@ -9,7 +9,7 @@ import com.qwy.qrcode.InterfaceA;
 import com.qwy.qrcode.ProcessType;
 import com.qwy.qrcode.Result;
 
-public class QrCodeType extends a {
+public class ZxingType extends a {
 
 
     @Override
@@ -22,8 +22,16 @@ public class QrCodeType extends a {
         return super.handleQrCode(processType, bArr, i, i2, aVar);
     }
 
+    /**
+     * Given an image source, convert to a binary bitmap.
+     * <p>
+     * Override this to use a custom binarizer.
+     *
+     * @param luminanceSource the image source
+     * @return a BinaryBitmap
+     */
     @Override
-    BinaryBitmap b(LuminanceSource luminanceSource) {
+    BinaryBitmap toBitmap(LuminanceSource luminanceSource) {
         return new BinaryBitmap(new GlobalHistogramBinarizer(luminanceSource));
     }
 

@@ -14,7 +14,7 @@ public class d implements InterfaceA, InterfaceB {
     //    private String processName = CookieSpecs.DEFAULT;
     private String processName = "default";
 
-    public static d btv() {
+    public static d getInstance() {
         if (gEp == null) {
             gEp = new d();
         }
@@ -22,10 +22,10 @@ public class d implements InterfaceA, InterfaceB {
     }
 
     @Override
-    public Bitmap getBitmap(String str, int i, int i2, Bitmap bitmap, String str2) {
+    public Bitmap getBitmap(String str, int width, int height, Bitmap bitmap, String str2) {
         Log.d(TAG, "encode: ");
-        for (InterfaceB bVar : this.gEr) {
-            Bitmap mBitmap = bVar.getBitmap(str, i, i2, bitmap, str2);
+        for (InterfaceB bVar : gEr) {
+            Bitmap mBitmap = bVar.getBitmap(str, width, height, bitmap, str2);
             if (mBitmap != null) {
                 return mBitmap;
             }
@@ -52,7 +52,7 @@ public class d implements InterfaceA, InterfaceB {
     @Override
     public Result handleQrCode(ProcessType processType, byte[] bArr, int width, int height, InterfaceA.C0521a aVar) {
         Log.d(TAG, "decode: data");
-        for (InterfaceA aVar2 : this.gEq) {
+        for (InterfaceA aVar2 : gEq) {
             Log.d(TAG, "decode: data start " + aVar2.getName());
             Result result = aVar2.handleQrCode(processType, bArr, width, height, aVar);
             Log.e(TAG, "decode:  null == result " + (null == result));
@@ -68,7 +68,7 @@ public class d implements InterfaceA, InterfaceB {
     }
 
     public void addQrCode(InterfaceA aVar) {
-        this.gEq.add(aVar);
+        gEq.add(aVar);
     }
 
     public void addBitmap(InterfaceB bVar) {
