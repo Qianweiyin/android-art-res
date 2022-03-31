@@ -43,11 +43,9 @@ final class DecodeHandler extends Handler {
     private static final String TAG = "QwyZxing";
     private final CaptureActivityInterface captureActivityInterface;
     private final ProcessType processType;
-    private boolean running = true;
-    private boolean cbe = false;
 
 
-    public DecodeHandler(CaptureActivityInterface  captureActivityInterface, ProcessType processType) {
+    public DecodeHandler(CaptureActivityInterface captureActivityInterface, ProcessType processType) {
         this.captureActivityInterface = captureActivityInterface;
         this.processType = processType;
     }
@@ -64,7 +62,7 @@ final class DecodeHandler extends Handler {
     private void decode(byte[] data, int width, int height) {
 
 
-        Message message;
+        Message message ;
         long currentTimeMillis = System.currentTimeMillis();
         Log.d("QwyZxing", "data.length : " + (data.length));
 
@@ -132,32 +130,18 @@ final class DecodeHandler extends Handler {
         Log.e("QwyZxing", "quit  : " + R.id.quit);
         Log.e("QwyZxing", "decode_succeeded  : " + R.id.decode_succeeded);
         Log.e("QwyZxing", "launch_product_query  : " + R.id.launch_product_query);
-        if (running) {
-            int i = message.what;
-            boolean z = true;
 
-            Log.e("QwyZxing", "i  : " + i);
 
-            if (i != R.id.decode) {
-                if (i != 2) {
-                    z = false;
-                    if (i != 3) {
-                        if (i == 8) {
-                            this.running = false;
-                            Looper.myLooper().quit();
-                            return;
-                        }
-                        return;
-                    }
-                }
-                this.cbe = z;
-            } else if (!this.cbe) {
-                //message.what == R.id.decode
-                decode((byte[]) message.obj, message.arg1, message.arg2);
-            }
+        if (message.what == R.id.decode) {
+            decode((byte[]) message.obj, message.arg1, message.arg2);
+        } else if (message.what == R.id.quit) {
+            Looper.myLooper().quit();
         }
-
-
+        Message msg = Message.obtain(captureActivityInterface.getHandler(), R.id.scan_flow_data);
+        msg.arg1 = message.arg1;
+        msg.arg2 = message.arg2;
+        msg.obj = message.obj;
+        msg.sendToTarget();
     }
 
 

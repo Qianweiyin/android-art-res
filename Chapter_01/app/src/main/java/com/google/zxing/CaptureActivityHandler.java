@@ -74,7 +74,11 @@ public final class CaptureActivityHandler extends Handler {
     public void handleMessage(Message message) {
 
         int what = message.what;
-        Log.e("QwyZxing", "what : " + what);
+        Log.e("QwyZxingLight", "what : " + what);
+        Log.e("QwyZxingLight", "R.id.decode_failed : " + R.id.decode_failed);
+        Log.e("QwyZxingLight", "R.id.decode_succeeded : " + R.id.decode_succeeded);
+        Log.e("QwyZxingLight", "R.id.restart_preview : " + R.id.restart_preview);
+        Log.e("QwyZxingLight", "R.id.scan_flow_data : " + R.id.scan_flow_data);
         if (what == R.id.decode_failed) { // 4
             // We're decoding as fast as possible, so when one decode fails, start another.
             //解码失败
@@ -83,10 +87,24 @@ public final class CaptureActivityHandler extends Handler {
             cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
         } else if (what == R.id.decode_succeeded) { //5
             state = State.SUCCESS;
-            this.captureActivityInterface.handleDecode((Result) message.obj);
+            captureActivityInterface.handleDecode((Result) message.obj);
         } else if (what == R.id.restart_preview) {  //9
             //重新取一帧图像并执行解码
             restartPreviewAndDecode();
+        } else if (what == R.id.scan_flow_data) {
+            Log.e("QwyZxingLight", "captureActivityInterface != null : " + (captureActivityInterface != null));
+            Log.e("QwyZxingLight", "message.obj == null : " + (message.obj == null));
+            //获取摄像头扫码数据
+            try {
+                if (captureActivityInterface != null) {
+                    if (message.obj == null) {
+                        return;
+                    }
+                    captureActivityInterface.onPreviewData(message.arg2, message.arg1, (byte[]) message.obj);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -113,7 +131,7 @@ public final class CaptureActivityHandler extends Handler {
         Log.e("QwyZxing", " R.id.quit : " + R.id.quit);
         Log.e("QwyZxing", " R.id.decode : " + R.id.decode);
         Message.obtain(decodeThread.getHandler(), 3).sendToTarget();
-        cameraManager.requestPreviewFrame(decodeThread.getHandler(),  R.id.decode);
+        cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
     }
 
     public void start() {

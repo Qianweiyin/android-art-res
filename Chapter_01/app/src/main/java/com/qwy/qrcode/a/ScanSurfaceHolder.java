@@ -1,17 +1,12 @@
 package com.qwy.qrcode.a;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
+
 
 import com.google.zxing.AmbientLightManager;
 import com.google.zxing.CaptureActivityInterface;
@@ -30,10 +25,8 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
     private CameraManager mCameraManager;
     private AmbientLightManager ambientLightManager;
     private CaptureActivityClass mCaptureActivityClass;
-    private ObjectAnimator objectAnimator;
     private SurfaceView surfaceView;
     private QrCodeViewInterface mQrCodeViewInterface;
-    private View view;
     private SurfaceHolderInterface mSurfaceHolderInterface;
     private InactivityTimer inactivityTimer;
     private ScanMediaPlayer mScanMediaPlayer;
@@ -44,13 +37,11 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
     public ScanSurfaceHolder(Activity activity,
                              SurfaceView surfaceView,
                              QrCodeViewInterface qrCodeViewInterface,
-                             View view,
                              SurfaceHolderInterface surfaceHolderInterface,
                              String type) {
         this.activity = activity;
         this.surfaceView = surfaceView;
         this.mQrCodeViewInterface = qrCodeViewInterface;
-        this.view = view;
         this.mSurfaceHolderInterface = surfaceHolderInterface;
         this.mType = type;
         initParams();
@@ -62,20 +53,6 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
         ambientLightManager = new AmbientLightManager(activity);
     }
 
-    @Override
-    public void animatorStart() {
-        objectAnimator.start();
-    }
-
-    @Override
-    public void animatorEnd() {
-        ObjectAnimator objectAnimator;
-        if (activity != null
-                && !activity.isFinishing()
-                && (objectAnimator = this.objectAnimator) != null) {
-            objectAnimator.end();
-        }
-    }
 
     @Override
     public CameraManager getCameraManager() {
@@ -91,45 +68,25 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
         mSurfaceHolderInterface.handleDecode(result);
     }
 
+    @Override
+    public void onPreviewData(int width, int height, byte[] data) {
+        mSurfaceHolderInterface.onPreviewData(width, height, data);
+    }
+
     public float onScale(float scale) {
         return mCameraManager.onScale(scale);
     }
 
     public void btE() {
-        CaptureActivityClass captureActivityClass = mCaptureActivityClass;
-        if (captureActivityClass != null) {
-            captureActivityClass.btE();
+        if (mCaptureActivityClass != null) {
+            mCaptureActivityClass.btE();
         }
     }
 
-    protected void btJ() {
-        Rect framingRect = mCameraManager.getFramingRect();
-        if (framingRect == null) {
-            view.setVisibility(View.GONE);
-            return;
-        }
-        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        marginLayoutParams.setMargins(
-                marginLayoutParams.leftMargin,
-                framingRect.top,
-                marginLayoutParams.rightMargin,
-                marginLayoutParams.bottomMargin);
-        view.setLayoutParams(marginLayoutParams);
-        objectAnimator = ObjectAnimator.ofFloat(
-                view,
-                "translationY",
-                0.0f,
-                (framingRect.bottom - framingRect.top) - 12);
-        objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        objectAnimator.setRepeatCount(-1);
-        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
-        objectAnimator.setDuration(3000L);
-    }
 
     public void quitSynchronously() {
-        CaptureActivityClass aVar = mCaptureActivityClass;
-        if (aVar != null) {
-            aVar.quitSynchronously();
+        if (mCaptureActivityClass != null) {
+            mCaptureActivityClass.quitSynchronously();
         }
     }
 
@@ -151,8 +108,6 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
                 //打开摄像头
                 mCameraManager.openDriver(mSurfaceHolder);
                 Log.e("QwyZxing", "initCamera 2  ");
-
-                btJ();
                 mCaptureActivityClass.start();
                 mSurfaceHolderInterface.start();
                 mCameraManager.startPreview();
@@ -170,7 +125,6 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
     @Override
     public void drawViewfinder() {
         Log.e("QwyZxing", "ScanSurfaceHolder drawViewfinder");
-
         mQrCodeViewInterface.drawViewfinder();
     }
 
@@ -179,26 +133,23 @@ public class ScanSurfaceHolder implements SurfaceHolder.Callback, CaptureActivit
         return mCaptureActivityClass.getCaptureActivityHandler();
     }
 
-    public void setTorch(boolean z) {
-        mCameraManager.setTorch(z);
+    public void setTorch(boolean on) {
+        mCameraManager.setTorch(on);
     }
 
     public void pause() {
-        SurfaceHolder surfaceHolder;
         inactivityTimer.onPause();
         ambientLightManager.stop();
         mScanMediaPlayer.close();
         mCameraManager.closeDriver();
-        if (!this.hasSurface
-                && (surfaceHolder = mSurfaceHolder) != null) {
-            surfaceHolder.removeCallback(this);
+        if (!hasSurface && mSurfaceHolder != null) {
+            mSurfaceHolder.removeCallback(this);
         }
     }
 
     public void reScan() {
-        CaptureActivityClass captureActivityClass = mCaptureActivityClass;
-        if (captureActivityClass != null) {
-            captureActivityClass.btC();
+        if (mCaptureActivityClass != null) {
+            mCaptureActivityClass.btC();
         }
     }
 

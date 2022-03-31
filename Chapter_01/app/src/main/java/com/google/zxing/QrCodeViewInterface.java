@@ -31,6 +31,11 @@ public interface QrCodeViewInterface {
 
     int getScanTextColor();
 
+    /**
+     * 扫描线颜色
+     */
+    int getLaserColor();
+
     int getScanTextLeft();
 
     int getScanTextSize();

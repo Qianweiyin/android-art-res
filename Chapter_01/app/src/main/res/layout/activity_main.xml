@@ -1,56 +1,65 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <SurfaceView
-        android:id="@+id/surface_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
 
-    <com.qwy.scan.preview.QrCodeForegroundPreview
-        android:id="@+id/qr_viewfinder_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.qwy.scan.CardViewfinderView
-        android:id="@+id/card_viewfinder_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/iv_scan_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/qrcode_scan_line" />
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
 
 
-    <LinearLayout
-        android:id="@+id/ll_light"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50.0dip"
-        android:gravity="center"
-        android:orientation="vertical">
+        <com.qwy.scan.preview.QrCodeForegroundPreview
+            android:id="@+id/qr_viewfinder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/iv_qrcode_light_open"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/qrcode_scan_light_open" />
+
+        <LinearLayout
+            android:id="@+id/ll_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="330dp"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/iv_qrcode_light_open"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/qrcode_scan_light_open" />
+
+            <TextView
+                android:id="@+id/tv_flash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/qrcode_scan_light_open"
+                android:textColor="@color/c_ffffffff" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_qrcode_light_text"
-            android:layout_width="fill_parent"
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/qrcode_scan_light_open"
-            android:textColor="@color/purple_700" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:text="二维码在哪里？"
+            android:textColor="@color/c_ffffffff"
+            android:textSize="14dp" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

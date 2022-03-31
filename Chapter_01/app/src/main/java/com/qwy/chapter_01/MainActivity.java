@@ -1,7 +1,6 @@
 package com.qwy.chapter_01;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,33 +20,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.zxing.SurfaceHolderInterface;
 import com.qwy.qrcode.Result;
 import com.qwy.qrcode.a.ScanSurfaceHolder;
-import com.qwy.scan.a.InterfaceB;
 import com.qwy.scan.preview.QrCodeForegroundPreview;
 import com.qwy.videogo.scan.main.FinishListener;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SurfaceHolderInterface, InterfaceB.a {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SurfaceHolderInterface {
 
     private static final String TAG = "QwyMainActivity";
 
     ScanSurfaceHolder scanSurfaceHolder;
     private ScaleGestureDetector scaleGestureDetector;
-    private int mode = 0;
 
-    private float gHy;
-    private float gHz;
-    private float mPosX;
-    private int gHD = 0;
-    private String gHo;
     private LinearLayout ll_light;
     private ImageView iv_qrcode_light_open;
     private TextView tv_qrcode_light_text;
 
-    private boolean gHw;
+    private boolean isFlashOn;
 
     private QrCodeForegroundPreview qr_viewfinder_view;
     private SurfaceView surface_view;
-    private ImageView iv_scan_bar;
 
 
     /**
@@ -76,27 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void buD() {
-//        this.gHL.start();
-    }
-
-    @Override
-    public void buE() {
-
-    }
-
-    @Override
-    public int[] but() {
-        return new int[]{this.surface_view.getWidth(), this.surface_view.getHeight()};
-    }
-
-    @Override
-    public void buu() {
-
-    }
-
-
-    @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -104,10 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         qr_viewfinder_view = (QrCodeForegroundPreview) findViewById(R.id.qr_viewfinder_view);
         surface_view = (SurfaceView) findViewById(R.id.surface_view);
-        iv_scan_bar = (ImageView) findViewById(R.id.iv_scan_bar);
         ll_light = (LinearLayout) findViewById(R.id.ll_light);
         iv_qrcode_light_open = (ImageView) findViewById(R.id.iv_qrcode_light_open);
-        tv_qrcode_light_text = (TextView) findViewById(R.id.tv_qrcode_light_text);
+        tv_qrcode_light_text = (TextView) findViewById(R.id.tv_flash);
 
 
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
@@ -117,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this,
                 surface_view,
                 qr_viewfinder_view,
-                iv_scan_bar,
                 this,
                 "qrCode");
 
@@ -132,7 +100,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         iv_qrcode_light_open.setOnClickListener(this);
 
-        scanQrCode();
+//        scanQrCode();
+        scanSurfaceHolder.btE();
 
 
     }
@@ -147,17 +116,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String string;
         try {
             if (isOpen) {
-                this.iv_qrcode_light_open.setImageResource(R.mipmap.qrcode_scan_light_close);
-                textView = this.tv_qrcode_light_text;
+                iv_qrcode_light_open.setImageResource(R.mipmap.qrcode_scan_light_close);
+                textView = tv_qrcode_light_text;
                 string = getResources().getString(R.string.qrcode_scan_light_close);
             } else {
-                this.iv_qrcode_light_open.setImageResource(R.mipmap.qrcode_scan_light_open);
+                iv_qrcode_light_open.setImageResource(R.mipmap.qrcode_scan_light_open);
                 textView = this.tv_qrcode_light_text;
                 string = getResources().getString(R.string.qrcode_scan_light_open);
             }
             textView.setText(string);
             scanSurfaceHolder.setTorch(isOpen);
-            gHw = isOpen;
+            isFlashOn = isOpen;
         } catch (Exception unused) {
             Toast.makeText(this, "qrcode_scan_open_flashlight_error", Toast.LENGTH_SHORT).show();
         }
@@ -193,32 +162,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-    private void scanQrCode() {
-        final ObjectAnimator ofFloat2 = ObjectAnimator.ofFloat(qr_viewfinder_view, "alpha", 0.0f, 1.0f);
-        ofFloat2.setDuration(200L);
-        ofFloat2.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationCancel(Animator animator) {
+    @Override
+    public void onPreviewData(int width, int height, byte[] data) {
+        if (width == 0 || height == 0 || data == null) {
+            return;
+        }
+        try {
+            int size = width * height;
+            int y = 0;
+            //数据中采集的点数为100
+            for (int i = 0; i < size; i += size / 100) {
+                y += data[i] & 0xff;
             }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-            }
-
-            @Override
-            public void onAnimationStart(Animator animator) {
-                if (gHD == 0) {
-                    iv_scan_bar.setVisibility(View.VISIBLE);
-                    scanSurfaceHolder.btE();
+            int curLux = y / 100;
+            boolean isDark = curLux < 100.0f;
+            if (isDark) {
+                ll_light.setVisibility(View.VISIBLE);
+            } else {
+                if (!isFlashOn) {   //闪光灯亮的时候，手电筒图标不消失
+                    ll_light.setVisibility(View.INVISIBLE);
+                } else {
+                    ll_light.setVisibility(View.VISIBLE);
                 }
             }
-        });
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayFrameworkBugMessageAndExit() {
@@ -238,31 +207,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.btn_capture /* 2131296720 */:
-//                this.gHA.buH();
-//                return;
-
             //照明
-            case R.id.iv_qrcode_light_open:
-                clickQtCodeLight(!this.gHw);
+            case R.id.ll_light:
+                clickQtCodeLight(!isFlashOn);
                 return;
-//            case R.id.tv_card /* 2131301772 */:
-//                if (this.gHD != 1) {
-//                    buy();
-//                    this.gHD = 1;
-//                    return;
-//                }
-//                return;
-//            case R.id.tv_code /* 2131301812 */:
-//                if (this.gHD != 0) {
-//                    bux();
-//                    this.gHD = 0;
-//                    return;
-//                }
-//                return;
             default:
                 return;
         }
@@ -271,13 +222,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPause() {
-        Log.e(TAG, "onPause");
-        int i = this.mode;
-        if (i == 0 || i == 2) {
-            scanSurfaceHolder.quitSynchronously();
-        }
-        scanSurfaceHolder.pause();
         super.onPause();
+        Log.e(TAG, "onPause");
+        scanSurfaceHolder.quitSynchronously();
+        scanSurfaceHolder.pause();
     }
 
     @Override

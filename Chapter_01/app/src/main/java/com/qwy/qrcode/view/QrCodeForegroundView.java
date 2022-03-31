@@ -5,7 +5,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +30,17 @@ public abstract class QrCodeForegroundView extends View implements QrCodeViewInt
     private Paint paint;
     private CopyOnWriteArrayList<ResultPoint> possibleResultPoints;
     private CopyOnWriteArrayList<ResultPoint> lastPossibleResultPoints;
+
+    public static int scannerStart = 0;
+    public static int scannerEnd = 0;
+    //扫描线宽度
+    private static final int SCANNER_LINE_HEIGHT = 10;
+    //扫描线移动距离
+    private static final int SCANNER_LINE_MOVE_DISTANCE = 5;
+
+
+    private static final int CORNER_RECT_WIDTH = 8;
+    private static final int CORNER_RECT_HEIGHT = 40;
 
 
     public QrCodeForegroundView(Context context, AttributeSet attributeSet) {
@@ -56,6 +70,12 @@ public abstract class QrCodeForegroundView extends View implements QrCodeViewInt
         Rect framingRect;
         CameraManager cameraManager = mCameraManager;
         if (!(cameraManager == null || (framingRect = cameraManager.getFramingRect()) == null)) {
+
+            if (scannerStart == 0 || scannerEnd == 0) {
+                scannerStart = framingRect.top;
+                scannerEnd = framingRect.bottom;
+            }
+
             int width = getWidth();
             int height = getHeight();
             // 绘制模糊区域 Draw the exterior (i.e. outside the framing rect) darkened
@@ -79,21 +99,23 @@ public abstract class QrCodeForegroundView extends View implements QrCodeViewInt
 
             //绘制边角
             drawCorner(canvas, framingRect);
+
+            //绘制扫描线
+            drawLaserScanner(canvas, framingRect);
+
+
             paint.setTextSize(getScanTextSize());
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setColor(getScanTextColor());
-            canvas.drawText(getScanText(), getScanTextLeft(), framingRect.bottom + dip2px(context, 30.0f), paint);
+            //绘制text
+            canvas.drawText(getScanText(), getScanTextLeft(), framingRect.top - dip2px(context, 40.0f), paint);
 
 
             //add扫描点
             CopyOnWriteArrayList<ResultPoint> currentPossible = possibleResultPoints;
             CopyOnWriteArrayList<ResultPoint> currentLast = lastPossibleResultPoints;
 
-//            Log.e("QwyPoint", "addPoint :  " + addPoint());
-
             if (addPoint()) {
-//                Log.e("QwyPoint", "currentPossible isEmpty :  " + currentPossible.isEmpty());
-
                 if (currentPossible.isEmpty()) {
                     lastPossibleResultPoints = null;
                 } else {
@@ -112,9 +134,6 @@ public abstract class QrCodeForegroundView extends View implements QrCodeViewInt
                     }
                 }
             }
-
-
-            //绘制扫描线
 
 
             // Request another update at the animation interval, but only repaint the laser line,
@@ -136,14 +155,54 @@ public abstract class QrCodeForegroundView extends View implements QrCodeViewInt
     //绘制边角
     private void drawCorner(Canvas canvas, Rect rect) {
         paint.setColor(getCornerColor());
-        canvas.drawRect(rect.left - 10, rect.top - 10, rect.left + 30, rect.top, paint);
-        canvas.drawRect(rect.left - 10, rect.top, rect.left, rect.top + 30, paint);
-        canvas.drawRect(rect.right - 30, rect.top - 10, rect.right, rect.top, paint);
-        canvas.drawRect(rect.right, rect.top - 10, rect.right + 10, rect.top + 30, paint);
-        canvas.drawRect(rect.left, rect.bottom, rect.left + 30, rect.bottom + 10, paint);
-        canvas.drawRect(rect.left - 10, rect.bottom - 30, rect.left, rect.bottom + 10, paint);
-        canvas.drawRect(rect.right - 30, rect.bottom, rect.right, rect.bottom + 10, paint);
-        canvas.drawRect(rect.right, rect.bottom - 30, rect.right + 10, rect.bottom + 10, paint);
+        //左上
+        canvas.drawRect(rect.left, rect.top, rect.left + CORNER_RECT_WIDTH, rect.top + CORNER_RECT_HEIGHT, paint);
+        canvas.drawRect(rect.left, rect.top, rect.left + CORNER_RECT_HEIGHT, rect.top + CORNER_RECT_WIDTH, paint);
+        //右上
+        canvas.drawRect(rect.right - CORNER_RECT_WIDTH, rect.top, rect.right, rect.top + CORNER_RECT_HEIGHT, paint);
+        canvas.drawRect(rect.right - CORNER_RECT_HEIGHT, rect.top, rect.right, rect.top + CORNER_RECT_WIDTH, paint);
+        //左下
+        canvas.drawRect(rect.left, rect.bottom - CORNER_RECT_WIDTH, rect.left + CORNER_RECT_HEIGHT, rect.bottom, paint);
+        canvas.drawRect(rect.left, rect.bottom - CORNER_RECT_HEIGHT, rect.left + CORNER_RECT_WIDTH, rect.bottom, paint);
+        //右下
+        canvas.drawRect(rect.right - CORNER_RECT_WIDTH, rect.bottom - CORNER_RECT_HEIGHT, rect.right, rect.bottom, paint);
+        canvas.drawRect(rect.right - CORNER_RECT_HEIGHT, rect.bottom - CORNER_RECT_WIDTH, rect.right, rect.bottom, paint);
+    }
+
+    //绘制扫描线
+    private void drawLaserScanner(Canvas canvas, Rect rect) {
+        paint.setColor(getLaserColor());
+
+        RadialGradient radialGradient = new RadialGradient(
+                (float) (rect.left + rect.width() / 2),
+                (float) (scannerStart + SCANNER_LINE_HEIGHT / 2),
+                360f,
+                getLaserColor(),
+                shadeColor(getLaserColor()),
+                Shader.TileMode.MIRROR);
+
+
+        paint.setShader(radialGradient);
+        if (scannerStart <= scannerEnd) {
+            RectF rectF = new RectF(
+                    rect.left + 2 * SCANNER_LINE_HEIGHT,
+                    scannerStart,
+                    rect.right - 2 * SCANNER_LINE_HEIGHT,
+                    scannerStart + SCANNER_LINE_HEIGHT);
+            canvas.drawOval(rectF, paint);
+            scannerStart += SCANNER_LINE_MOVE_DISTANCE;
+        } else {
+            scannerStart = rect.top;
+        }
+        paint.setShader(null);
+    }
+
+
+    //处理颜色模糊
+    public int shadeColor(int color) {
+        String hax = Integer.toHexString(color);
+        String result = "20" + hax.substring(2);
+        return Integer.valueOf(result, 16);
     }
 
 

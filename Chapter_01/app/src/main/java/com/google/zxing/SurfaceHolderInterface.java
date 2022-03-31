@@ -11,4 +11,7 @@ public interface SurfaceHolderInterface {
     void start();
 
     void initCameraFail();
+
+    void onPreviewData(int width, int height, byte[] data);
+
 }

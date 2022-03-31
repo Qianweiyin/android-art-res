@@ -28,7 +28,7 @@ public class QrCodeForegroundPreview extends QrCodeForegroundView {
      */
     @Override
     public int getCornerColor() {
-        return this.resources.getColor(R.color.c_ffffffff);
+        return resources.getColor(R.color.c_ffffffff);
     }
 
     public int getCornerWidth() {
@@ -43,11 +43,12 @@ public class QrCodeForegroundPreview extends QrCodeForegroundView {
      */
     @Override
     public int getFrameLineColor() {
-        return this.resources.getColor(R.color.c_ffffffff);
+        return resources.getColor(R.color.c_ffffffff);
     }
 
     /**
      * ANIMATION_DELAY
+     *
      * @return
      */
     @Override
@@ -66,6 +67,7 @@ public class QrCodeForegroundPreview extends QrCodeForegroundView {
 
     /**
      * OPAQUE
+     *
      * @return
      */
     @Override
@@ -75,22 +77,27 @@ public class QrCodeForegroundPreview extends QrCodeForegroundView {
 
     @Override
     public int getPointColor() {
-        return this.resources.getColor(R.color.c_ffff00);
+        return resources.getColor(R.color.c_ffff00);
     }
 
     @Override
     public int getResultColor() {
-        return this.resources.getColor(R.color.teal_700);
+        return resources.getColor(R.color.teal_700);
     }
 
     @Override
     public String getScanText() {
-        return this.resources.getString(R.string.scan_tip);
+        return resources.getString(R.string.scan_tip);
     }
 
     @Override
     public int getScanTextColor() {
-        return getResources().getColor(R.color.white);
+        return getResources().getColor(R.color.c_ffffffff);
+    }
+
+    @Override
+    public int getLaserColor() {
+        return getResources().getColor(R.color.c_ffffffff);
     }
 
     @Override
@@ -100,7 +107,7 @@ public class QrCodeForegroundPreview extends QrCodeForegroundView {
 
     @Override
     public int getScanTextSize() {
-        return (int) this.resources.getDimension(R.dimen.y40);
+        return (int) resources.getDimension(R.dimen.y40);
     }
 
     public String getScanType() {

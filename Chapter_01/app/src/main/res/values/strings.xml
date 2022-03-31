@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Chapter_01</string>
 
-    <string name="scan_tip">将二维码/条码放入框内，即可自动扫描</string>
-    <string name="qrcode_scan_light_open">打开照明</string>
-    <string name="qrcode_scan_light_close">关闭照明</string>
+    <string name="scan_tip">将二维码放入框内,即可自动扫描</string>
+    <string name="qrcode_scan_light_open">轻触照亮</string>
+    <string name="qrcode_scan_light_close">轻触关闭</string>
     <string name="toast_1">二维码解析失败</string>
 
 </resources>
