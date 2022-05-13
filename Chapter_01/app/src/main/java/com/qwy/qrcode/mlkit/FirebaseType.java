@@ -22,7 +22,7 @@ import java.util.List;
 public class FirebaseType implements VisionImageProcessor {
 
     private BarcodeScanner getProcessType(ProcessType processType) {
-        Log.e("QwyFirebase", "processType.name() : " + processType.name());
+//        Log.e("QwyFirebase", "processType.name() : " + processType.name());
         return processType == ProcessType.BAR_CODE ? getBarCodeScanner()
                 : processType == ProcessType.QR_CODE ? getQrCodeScanner()
                 : btx();
@@ -37,10 +37,12 @@ public class FirebaseType implements VisionImageProcessor {
             boolean isCanceled;
             do {
                 isCanceled = listTask.isCanceled();
+
                 if (isCanceled) {
                     return null;
                 }
                 isCanceled = listTask.isComplete();
+
             } while (!isCanceled);
 
 
@@ -48,6 +50,8 @@ public class FirebaseType implements VisionImageProcessor {
 
             if (barcodeList != null) {
                 isCanceled = barcodeList.isEmpty();
+                Log.e("QwyFirebase", "isCanceled  : " + (isCanceled));
+
                 if (!isCanceled) {
                     Barcode barcode = barcodeList.get(0);
                     String rawValue = barcode.getRawValue();

@@ -9,9 +9,8 @@ import java.util.List;
 public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     private static final String TAG = "QwyZxing";
     private static CameraInputInfo cameraInputInfo;
-    private List<VisionImageProcessor> gEq = new ArrayList();
-    private List<InputInfo> inputInfoList = new ArrayList();
-    //    private String processName = CookieSpecs.DEFAULT;
+    private List<VisionImageProcessor> qrCodeList = new ArrayList();
+    private List<InputInfo> bitmapList = new ArrayList();
     private String processName = "default";
 
     public static CameraInputInfo getInstance() {
@@ -24,7 +23,7 @@ public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     @Override
     public Bitmap getBitmap(String str, int width, int height, Bitmap bitmap, String str2) {
         Log.d(TAG, "encode: ");
-        for (InputInfo bVar : inputInfoList) {
+        for (InputInfo bVar : bitmapList) {
             Bitmap mBitmap = bVar.getBitmap(str, width, height, bitmap, str2);
             if (mBitmap != null) {
                 return mBitmap;
@@ -36,12 +35,12 @@ public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     @Override
     public Result handleBitmap(ProcessType processType, Bitmap bitmap) {
         Log.d(TAG, "decode: bitmap start ");
-        for (VisionImageProcessor aVar : this.gEq) {
-            Log.d(TAG, "decode: bitmap start " + aVar.getName());
-            Result result = aVar.handleBitmap(processType, bitmap);
+        for (VisionImageProcessor qrCode : qrCodeList) {
+            Log.d(TAG, "decode: bitmap start " + qrCode.getName());
+            Result result = qrCode.handleBitmap(processType, bitmap);
             if (result != null) {
-                this.processName = aVar.getName();
-                Log.d(TAG, "decode: bitmap success : " + this.processName + " | " + result.getText());
+                processName = qrCode.getName();
+                Log.d(TAG, "decode: bitmap success : " + processName + " | " + result.getText());
                 return result;
             }
         }
@@ -52,14 +51,14 @@ public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     @Override
     public Result handleQrCode(ProcessType processType, byte[] bArr, int width, int height, VisionImageProcessor.C0521a aVar) {
         Log.d(TAG, "decode: data");
-        for (VisionImageProcessor aVar2 : gEq) {
-            Log.d(TAG, "decode: data start " + aVar2.getName());
-            Result result = aVar2.handleQrCode(processType, bArr, width, height, aVar);
+        for (VisionImageProcessor qrCode : qrCodeList) {
+            Log.d(TAG, "decode: data start " + qrCode.getName());
+            Result result = qrCode.handleQrCode(processType, bArr, width, height, aVar);
             Log.e(TAG, "decode:  null == result " + (null == result));
 
             if (result != null) {
-                this.processName = aVar2.getName();
-                Log.d(TAG, "decode: data success : " + this.processName + " | " + result.getText());
+                processName = qrCode.getName();
+                Log.d(TAG, "decode: data success : " + processName + " | " + result.getText());
                 return result;
             }
         }
@@ -68,15 +67,15 @@ public class CameraInputInfo implements VisionImageProcessor, InputInfo {
     }
 
     public void addQrCode(VisionImageProcessor aVar) {
-        gEq.add(aVar);
+        qrCodeList.add(aVar);
     }
 
     public void addBitmap(InputInfo inputInfo) {
-        inputInfoList.add(inputInfo);
+        bitmapList.add(inputInfo);
     }
 
     @Override
     public String getName() {
-        return this.processName;
+        return processName;
     }
 }

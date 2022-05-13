@@ -9,7 +9,7 @@ import com.google.zxing.camera.CameraManager;
  */
 public interface VisionImageProcessor {
     class C0521a {
-        private CameraManager mCameraManager;
+        private final CameraManager mCameraManager;
 
         public C0521a(CameraManager cameraManager) {
             mCameraManager = cameraManager;

@@ -70,16 +70,16 @@ final class DecodeHandler extends Handler {
         try {
             // 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
             byte[] bytes = new byte[data.length];
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    bytes[(((j * height) + height) - i) - 1] = data[(i * width) + j];
-                }
-            }
+//            for (int i = 0; i < height; i++) {
+//                for (int j = 0; j < width; j++) {
+//                    bytes[(((j * height) + height) - i) - 1] = data[(i * width) + j];
+//                }
+//            }
             result = CameraInputInfo.getInstance().handleQrCode(
                     processType,
                     bytes,
-                    height,
                     width,
+                    height,
                     new VisionImageProcessor.C0521a(captureActivityInterface.getCameraManager()));
 
             Log.d("QwyZxing", "result == null : " + (result == null));
@@ -91,7 +91,7 @@ final class DecodeHandler extends Handler {
                 sb.append(CameraInputInfo.getInstance().getName());
                 sb.append("|result=");
                 sb.append(result.getText());
-                Log.d("QwyZxing", sb.toString());
+                Log.d("QwyFirebase", sb.toString());
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();

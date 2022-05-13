@@ -140,7 +140,7 @@ abstract class a implements VisionImageProcessor {
         return new PlanarYUVLuminanceSource(bArr, width, height, 0, 0, width, height, false);
     }
 
-    private QRCodeFormat a(BarcodeFormat barcodeFormat) {
+    private QRCodeFormat getQrCodeFormat(BarcodeFormat barcodeFormat) {
         switch (barcodeFormat) {
             case QR_CODE:
                 return QRCodeFormat.QR_CODE;
@@ -189,7 +189,7 @@ abstract class a implements VisionImageProcessor {
         try {
             try {
                 com.google.zxing.Result zxingResult = multiFormatReader.decodeWithState(toBitmap(luminanceSource));
-                Result result = new Result(zxingResult.getText(), a(zxingResult.getBarcodeFormat()));
+                Result result = new Result(zxingResult.getText(), getQrCodeFormat(zxingResult.getBarcodeFormat()));
                 multiFormatReader.reset();
                 return result;
             } catch (ReaderException e) {

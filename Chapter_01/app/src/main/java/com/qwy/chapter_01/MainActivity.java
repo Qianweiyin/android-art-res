@@ -3,6 +3,7 @@ package com.qwy.chapter_01;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.SurfaceHolderInterface;
 import com.qwy.qrcode.Result;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_light = (LinearLayout) findViewById(R.id.ll_light);
         iv_qrcode_light_open = (ImageView) findViewById(R.id.iv_qrcode_light_open);
         tv_qrcode_light_text = (TextView) findViewById(R.id.tv_flash);
-
+        ll_light.setOnClickListener(this);
 
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
@@ -212,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             //照明
             case R.id.ll_light:
+            case R.id.iv_qrcode_light_open:
                 clickQtCodeLight(!isFlashOn);
                 return;
             default:
@@ -232,6 +235,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         scanSurfaceHolder.resume();
+
+
+        Log.e("QwyZxing", "CAMERA : "+(ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED));
     }
 
 
