@@ -8,9 +8,30 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="c_db4b44">#db4b44</color>
-    <color name="c_00000000">#00000000</color>
     <color name="c_ffffffff">#ffffffff</color>
     <color name="c_ffff00">#ffff00</color>
-    <color name="c_90ffffff">#90ffffff</color>
     <color name="c_00ff00">#ffff00</color>
+
+
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_frame">#7F1FB3E2</color>
+    <color name="viewfinder_corner">#FF1FB3E2</color>
+    <color name="viewfinder_laser">#FF1FB3E2</color>
+    <color name="viewfinder_point">#FF1FB3E2</color>
+    <color name="viewfinder_text_color">#FFC0C0C0</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark">#9A000000</color>
+
+
+    <color name="barcode_reticle_stroke">#40000000</color>
+    <color name="barcode_reticle_background">#99000000</color>
+    <color name="reticle_ripple">#9AFFFFFF</color>
+
+
+    <color name="c_00000000">#00000000</color>
+    <color name="c_ffffff">#ffffff</color>
+    <color name="c_90ffffff">#90ffffff</color>
+    <color name="c_419ef7">#419ef7</color>
+
+
 </resources>

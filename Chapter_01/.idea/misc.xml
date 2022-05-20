@@ -3,9 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/drawable/camera_flash.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_close_vd_white_24.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_flash_off_vd_white_24.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_image_search_vd_black_24.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/ic_settings_vd_white_24.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ml_flashlight_selector.xml" value="0.2235" />
+        <entry key="app/src/main/res/drawable/top_action_bar_scrim.xml" value="0.1785" />
+        <entry key="app/src/main/res/layout/activity_live_barcode.xml" value="0.15729166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_main_02.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/camera_preview_overlay.xml" value="0.171875" />
         <entry key="app/src/main/res/layout/layout.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/layout/ml_camera_scan.xml" value="0.215625" />
+        <entry key="app/src/main/res/layout/ml_qrcode_camera_scan.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/qrcode_scan_activity.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/top_action_bar_in_live_camera.xml" value="0.1703125" />
       </map>
     </option>
   </component>
